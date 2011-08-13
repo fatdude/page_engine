@@ -11,5 +11,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form'
   s.add_dependency 'RedCloth'
   s.add_dependency 'haml-rails'
-  s.development_dependency 'rspec'
+  s.add_development_dependency 'rspec'
 end

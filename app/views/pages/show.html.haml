@@ -1,0 +1,66 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @page.title
+%p
+  %b Meta description:
+  = @page.meta_description
+%p
+  %b :
+  = @page.
+%p
+  %b Status:
+  = @page.status
+%p
+  %b Publish from:
+  = @page.publish_from
+%p
+  %b Publish to:
+  = @page.publish_to
+%p
+  %b Authorable type:
+  = @page.authorable_type
+%p
+  %b Authorable:
+  = @page.authorable_id
+%p
+  %b Permalink:
+  = @page.permalink
+%p
+  %b Url:
+  = @page.url
+%p
+  %b Display in meny:
+  = @page.display_in_meny
+%p
+  %b Display in sitemap:
+  = @page.display_in_sitemap
+%p
+  %b Menu css:
+  = @page.menu_css
+%p
+  %b No link:
+  = @page.no_link
+%p
+  %b Controller:
+  = @page.controller
+%p
+  %b Action:
+  = @page.action
+%p
+  %b Layout:
+  = @page.layout
+%p
+  %b Js:
+  = @page.js
+%p
+  %b Css:
+  = @page.css
+%p
+  %b Ancestry:
+  = @page.ancestry
+
+= link_to 'Edit', edit_page_path(@page)
+\|
+= link_to 'Back', pages_path
