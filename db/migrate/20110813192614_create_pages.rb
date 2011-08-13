@@ -8,7 +8,7 @@ class CreatePages < ActiveRecord::Migration
       t.datetime :publish_from
       t.datetime :publish_to
       t.string :authorable_type
-      t.id :authorable_id
+      t.integer :authorable_id
       t.string :permalink
       t.string :url
       t.boolean :display_in_meny, :default => true
