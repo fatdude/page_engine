@@ -1,0 +1,22 @@
+%h2 <%= plural_table_name.capitalize.humanize %>
+%p
+  = link_to('New <%= human_name.downcase %>', new_<%= singular_table_name %>_path, :class => 'icon_left add')
+  
+%table
+  %thead
+    %tr
+<%- for attribute in attributes -%>
+      %th <%= attribute.human_name %>
+<%- end -%>
+      %th
+      %th
+      %th
+  %tbody
+    - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
+      %tr{:class => cycle('odd', 'even')}
+<%- for attribute in attributes -%>
+        %td= <%= singular_table_name %>.<%= attribute.name %>
+<%- end -%>
+        %td.has_icon= link_to('Show', <%= singular_table_name %>, :class => 'icon show')
+        %td.has_icon= link_to('Edit', edit_<%= singular_table_name %>_path(<%= singular_table_name %>), :class => 'icon edit')
+        %td.has_icon= link_to('Destroy', <%= singular_table_name %>, :confirm => 'Are you sure?', :method => :delete, :class => 'icon delete')
