@@ -1,5 +1,2 @@
-Rails.application.routes.draw do
-  resources :pages
-  
-  
+Rails.application.routes.draw do  
 end
