@@ -1,0 +1,70 @@
+<%= simple_form_for([:admin, @parent, @page]) do |f| %>
+  <%= render 'admin/shared/error_messages', :target => @page %>
+  <%= hidden_field_tag :the_page_id, @page.id %>
+
+  <div class="inputs">  
+    <%= f.input :title %>
+    <%= f.input :permalink %>
+    
+    <div class="page_parts">
+      <div class="input new_page_part_name">
+        <label>New page part name</label> <%= text_field_tag :new_page_part_name %> <%= link_to_add_fields 'Add page part', f, :page_parts %>
+      </div>
+      <ul class="tabs">
+        <% @page.page_parts.each do |page_part| -%>
+          <li class="<%= page_part.title.parameterize %> <%= 'tab_with_errors' if page_part.errors.any? %>"><%= link_to page_part.title, "##{page_part.title.parameterize}_#{page_part.id}" %></li>
+        <% end -%>
+      </ul>
+      <% @index = 0 %>
+      <%= f.fields_for :page_parts do |builder| -%>
+        <div class="page_part" id="<%= @page.page_parts[@index.to_i].title.parameterize %>_<%= @page.page_parts[@index.to_i].id %>">
+          <%= render 'page_part_fields', :f => builder %>
+        </div>
+        <% @index += 1 %>
+      <% end -%>
+    </div>    
+    <% unless @roles.empty? -%>
+      <%= f.association :required_roles, :as => :check_boxes %>
+      <%= f.association :excluded_roles, :as => :check_boxes %>
+    <% end -%>
+    
+    <%= f.input :css, :label => 'CSS' %>
+    <%= f.input :js, :label => 'Javascript' %>
+    <%= f.input :meta_description %>
+    <%= f.input :meta_keywords %>
+    <%= f.input :status, :as => :select, :collection => Page.status_values, :include_blank => false %>
+    <%= f.input :no_publish_window, :as => :boolean %>
+    <%= f.input :publish_from, :order => [:day, :month, :year] %>
+    <%= f.input :publish_to, :order => [:day, :month, :year] %>
+    <%= f.input :url %>
+    <div class="input select optional">
+      <%= f.label :controller_action, 'Controller/Action', :class => 'select optional' %>
+      <select id="page_controller_action" name="page[controller_action]" class="select optional">
+        <option value=""></option>
+        <% @routes.each do |controller, actions| -%>
+          <optgroup label="<%= controller.gsub('/', ' ').humanize %>">
+            <% actions.each do |action| -%>
+              <option value="<%= controller %>|<%= action %>" <%= 'selected=selected' if @page.controller_action == "#{controller}|#{action}" %> <%= 'disabled=disabled' if @current.include?("#{controller}|#{action}") && @page.controller_action != "#{controller}|#{action}" %>><%= controller.gsub('/', ' ').humanize %>: <%= (action || 'N/A').humanize %></option>
+            <% end -%>
+          </optgroup>
+        <% end -%>
+      </select>
+    </div>    
+    <%= f.input :display_in_menu %>
+    <%= f.input :display_in_sitemap %>
+    <%= f.input :menu_css_class %>
+    <%= f.input :no_link %>
+    <%= f.input :layout, :as => :select, :collection => Page.layouts, :include_blank => false %>
+  </div>
+  
+  <% if Extras.class_exists?('Asset') -%>
+    <div class="field attached_assets">
+      <label>Attached assets</label><br/>
+      <%= render 'admin/assets/assets_box', :target => @page %>
+    </div>  
+  <% end -%>
+
+  <div class="actions">
+    <%= f.submit 'Save' %> or <%= f.submit 'Save & continue...', :name => 'continue' %>
+  </div>
+<% end %>

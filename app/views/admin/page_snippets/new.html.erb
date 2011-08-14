@@ -1,0 +1,7 @@
+<h2>New Page Snippet</h2>
+
+<%= render 'form' %>
+
+<% if Extras.class_exists?('Asset') -%>
+  <%= render 'admin/assets/assets' %>
+<% end -%>

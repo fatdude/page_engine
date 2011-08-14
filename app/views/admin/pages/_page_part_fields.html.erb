@@ -1,0 +1,17 @@
+<div class="delete">
+  <%= f.hidden_field :_destroy %>
+  <%= link_to 'Delete', '#', :class => 'icon delete', :title => "Delete the current page part" %>
+</div>
+<%= render 'admin/shared/error_messages', :target => @page.page_parts[@index.to_i] %>
+<div class="field page_part_title">
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+</div>
+<div class="field filter">
+  <%= f.label :filter %>
+  <%= f.select :filter, Page.filters, { }, { :class => 'filter', :rel => "page_page_parts_attributes_#{@index.to_i}_content" } %>
+</div>
+<div class="field editor content">
+  <%= f.text_area :content, 'data-filter' => @page.page_parts[@index.to_i].filter, :class => 'ignore_tab' %>
+</div>
+

@@ -1,0 +1,5 @@
+$('#page_<%= @original_page.id %>').after('<%= escape_javascript(render @page) %>');
+page_sort();
+<% flash.each do |level, message| -%>
+  flash_message('<%= escape_javascript(message) %>', '<%= level %>');
+<% end -%>

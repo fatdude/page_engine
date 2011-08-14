@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @page_snippet.title %>
+</p>
+
+<p>
+  <b>Filter:</b>
+  <%= @page_snippet.filter %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @page_snippet.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_page_snippet_path(@page_snippet) %> |
+<%= link_to 'Back', page_snippets_path %>

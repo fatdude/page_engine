@@ -1,0 +1,5 @@
+$('ul#pages').replaceWith('<%= escape_javascript(render 'page_list') %>');
+page_sort();
+<% flash.each do |level, message| -%>
+  flash_message('<%= escape_javascript(message) %>', '<%= level %>');
+<% end -%>

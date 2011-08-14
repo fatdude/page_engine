@@ -1,0 +1,5 @@
+<h2>Pages</h2>
+<p><%= link_to 'New root page', new_admin_page_path, :class => 'icon_left add' %></p>
+
+<%= render('page_list') unless @pages.empty? %>
+

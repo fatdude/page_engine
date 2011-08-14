@@ -1,0 +1,16 @@
+/* --- TEXTILE EDITOR ---*/
+
+div.textile-toolbar {
+	padding: 3px 0 0 3px;
+}
+
+div.textile-toolbar button,
+div.textile-toolbar a.help {
+	margin: 0 3px 3px 0;
+}
+
+div.textile-toolbar .ui-button-text {
+	padding: 5px 5px 2px 5px;
+}
+
+/* --- TEXTILE EDITOR END ---*/
