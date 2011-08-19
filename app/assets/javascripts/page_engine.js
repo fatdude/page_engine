@@ -3,6 +3,21 @@ $(document).ready(function(){
     page_sort();
   };
   
+  $('ol#page_engine').nestedSortable({
+    disableNesting: 'no-nest',
+    forcePlaceholderSize: true,
+    handle: 'div',
+    helper: 'clone',
+    items: 'li',
+//    maxLevels: 3,
+    opacity: .6,
+    placeholder: 'placeholder',
+    revert: 250,
+    tabSize: 25,
+    tolerance: 'pointer',
+    toleranceElement: '> div'
+  }); 
+  
   CKEDITOR.editorConfig = function( config )
   {
 	  config.basePath = '/assets/ckeditor';
