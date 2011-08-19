@@ -1,0 +1,256 @@
+/* --- GENERAL --- */
+
+.js .hidden {
+  display: none;
+}
+
+/* --- GENERAL END --- */
+
+/* --- ICONS --- */
+
+.icon, nav.pagination .first a, nav.pagination .prev a, nav.pagination .next a, nav.pagination .last a {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  height: 16px;
+  width: 16px;
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+  background-image: url(/assets/page_engine/ruby.png);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  vertical-align: middle;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.icon, nav.pagination .first a, nav.pagination .prev a, nav.pagination .next a, nav.pagination .last a {
+  *display: inline;
+}
+
+/*
+.icon.add {
+  background-image: url(/assets/page_engine/add.png);
+}
+
+.icon.delete {
+  background-image: url(/assets/page_engine/delete.png);
+}
+
+.icon.waiting {
+  background-image: url(/assets/page_engine/waiting.gif);
+}
+
+*/
+
+form.button_to {
+  display: inline;
+}
+
+form.button_to * {
+  display: inline;
+}
+
+/* --- ICONS END --- */
+
+/* --- PAGES --- */
+
+ol#page_engine,
+ol#page_engine ol {
+  margin: 0;
+  padding: 0 0 0 16px;
+  border-left: solid white 1px;
+}
+
+ol#page_engine li.page {
+  background: white;
+}
+
+ol#page_engine * {
+  list-style: none;
+}
+
+ol#page_engine .icon.add {
+  margin: 0 0 0 6px;
+  background-image: url(/assets/page_engine/page_add.png);
+}
+
+ol#page_engine .icon.edit {
+  background-image: url(/assets/page_engine/page_edit.png);
+}
+
+ol#page_engine .icon.delete {
+  background-image: url(/assets/page_engine/page_delete.png);
+}
+
+ol#page_engine .icon.duplicate {
+  background-image: url(/assets/page_engine/page_copy.png);
+}
+
+ol#page_engine .icon.published {
+  margin: 0 6px 0 0;
+  background-image: url(/assets/page_engine/page_green.png);
+}
+
+ol#page_engine .icon.live {
+  margin: 0 6px 0 0;
+  background-image: url(/assets/page_engine/page_lightning.png);
+}
+
+ol#page_engine .icon.draft {
+  margin: 0 6px 0 0;
+  background-image: url(/assets/page_engine/page_red.png);
+}
+
+ol#page_engine .icon.hidden {
+  margin: 0 6px 0 0;
+  background-image: url(/assets/page_engine/page_hidden.png);
+}
+
+ol#page_engine .icon.review {
+  margin: 0 6px 0 0;
+  background-image: url(/assets/page_engine/page_gear.png);
+}
+
+ol#page_engine .drop_line {
+  height: 2px;
+  border: solid white 1px;
+}
+
+ol#page_engine .drop_line img {
+  margin: -18px 0 0 -20px;
+  vertical-align: middle;
+  display: none;
+}
+
+ol#page_engine .drop_target img {
+  display: inline;
+}
+
+ol#page_engine .drop_line.drop_target {
+  background: #eaeaea;/*#efefef url(../../images/admin/cms/page_line.jpg) repeat-y 0 0;*/
+}
+
+ol.drag_hover_over {
+  border-left: solid #eaeaea 1px !important;
+}
+
+
+/* --- PAGES END --- */
+
+.page_part .delete {
+  float: right;
+}
+
+.page_part.ui-tabs-panel {
+  padding: 5px;
+}
+
+.page_part .field textarea {
+  width: 98.5%;
+}
+
+/* --- PAGE --- */
+
+.tabs li.tab_with_errors {
+  background: #CC0000 !important;
+}
+
+.tabs li.tab_with_errors a {
+  color: white !important;
+}
+
+.page_form br {
+  display: none;
+}
+
+.page_form .field input[type="text"] {
+  width: 44.6em;
+}
+
+.page_form #new_page_part_name {
+  width: 20em;
+}
+
+.page_form .field.new_page_part_name {
+  text-align: right;
+}
+
+.page_form .field.page_part_title label {
+  width: 6em;
+  display: inline-block;
+  text-align: right;
+}
+
+.page_form .field.status label,
+.page_form .field.css label,
+.page_form .field.js label,
+.page_form .field.no_publish_window label,
+.page_form .field.publish_from label,
+.page_form .field.publish_to label,
+.page_form .field.controller_action label,
+.page_form .field.url label,
+.page_form .field.display_in_sitemap label,
+.page_form .field.display_in_menu label,
+.page_form .field.menu_css_class label,
+.page_form .field.no_link label,
+.page_form .field.layout label,
+.page_form .field.title label,
+.page_form .field.permalink label,
+.page_form .field.meta_description label,
+.page_form .field.meta_keywords label,
+.page_form .field.page_part_title label,
+.page_form .field.filter label,
+.page_form .field.roles label:first-child {
+  padding: 0 10px 0 0;
+  width: 10em;
+  display: inline-block;
+  text-align: right;
+}
+
+.page_form .field.page_part_title label,
+.page_form .field.filter label {
+  width: 4em;
+}
+
+.page_form #page_meta_keywords,
+.page_form #page_meta_description,
+.page_form #page_css,
+.page_form #page_js {
+  height: 12em;
+  vertical-align: middle;
+  width: 49.5em;
+}
+
+.page_form .field.roles .roles_list {
+  display: inline;
+}
+
+/* --- PAGE END --- */
+
+/*--- PAGE SNIPPETS ---*/
+
+form#page_snippet .field.name br,
+form#page_snippet .field.filter br {
+  display: none;
+}
+
+form#page_snippet .field.name label,
+form#page_snippet .field.filter label {
+  display: inline-block;
+  width: 80px;
+}
+
+form#page_snippet .field.name input[type="text"] {
+  width: 645px;
+}
+
+form#page_snippet .field.content textarea {
+  width: 98.4%;
+}
+
+/*--- PAGE SNIPPETS END ---*/

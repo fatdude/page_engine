@@ -1,0 +1,7 @@
+%h2 Pages
+%p
+  = link_to 'New root page', new_admin_page_path, :class => 'icon_left add'
+  
+%ol#page_engine.list{ 'data-href' => sort_admin_pages_path }
+  = render @pages[nil] if @pages[nil]
+

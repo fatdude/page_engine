@@ -1,0 +1,9 @@
+%h2
+  Edit page
+  - if @parent
+    == (child of #{@parent.title})
+    
+= render 'form'
+
+- if PageEngine.class_exists?('Asset')
+  = render 'admin/assets/assets'

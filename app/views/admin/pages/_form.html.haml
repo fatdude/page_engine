@@ -1,0 +1,56 @@
+= simple_form_for([:admin, @parent, @page]) do |f|
+  = render 'admin/shared/error_messages', :target => @page
+  = hidden_field_tag :the_page_id, @page.id
+
+  .inputs  
+    = f.input :title
+    = f.input :permalink
+    
+    .page_parts
+      .input.new_page_part_name
+        %label New page part name
+        = text_field_tag :new_page_part_name 
+        = link_to_add_fields 'Add page part', f, :page_parts
+      %ul.tabs
+        - @page.page_parts.each do |page_part|
+          %li{ :class => "#{page_part.title.parameterize} #{'tab_with_errors' if page_part.errors.any?}"}
+            = link_to page_part.title, "##{page_part.title.parameterize}_#{page_part.id}"
+            
+      = f.fields_for :page_parts do |builder|
+        .page_part{ :id => "#{@page.page_parts[@page_part_index.to_i].title.parameterize}_#{ @page.page_parts[@page_part_index.to_i].id}" }
+          = render 'page_part_fields', :f => builder
+        - @page_part_index += 1
+        
+    - unless @roles.empty?
+      = f.association :required_roles, :as => :check_boxes
+      = f.association :excluded_roles, :as => :check_boxes
+    
+    = f.input :css, :label => 'CSS'
+    = f.input :js, :label => 'Javascript'
+    = f.input :meta_description
+    = f.input :meta_keywords
+    = f.input :status, :as => :select, :collection => Page.status_values, :include_blank => false
+    = f.input :no_publish_window, :as => :boolean
+    = f.input :publish_from, :order => [:day, :month, :year]
+    = f.input :publish_to, :order => [:day, :month, :year]
+    = f.input :url
+    
+    = f.input :controller_action do 
+      = f.select :controller_action, grouped_options_for_select(@routes)
+        
+    = f.input :display_in_menu
+    = f.input :display_in_sitemap
+    = f.input :menu_css_class
+    = f.input :no_link
+    = f.input :layout, :as => :select, :collection => Page.layouts, :include_blank => false
+  
+  - if PageEngine.class_exists?('Asset')
+    .field.attached_assets
+      %label Attached assets
+      %br
+      = render 'admin/assets/assets_box', :target => @page
+      
+  .actions
+    = f.submit 'Save' 
+    or 
+    = f.submit 'Save & continue...', :name => 'continue'

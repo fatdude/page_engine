@@ -1,120 +1,21 @@
-module PageEngine
-  def self.included(base)
-    base.send :extend, ClassMethods
-  end
- 
-  module ClassMethods
-    # any method placed here will apply to classes, like Hickwall
-    def page_engine(options={})
-      default_options = {
-        'layouts' => []
-      }.merge!(options.stringify_keys)
-      
-      before_filter :find_page
-      layout :get_layout
-      
-      Page.layouts = default_options['layouts'] if default_options['layouts']
-      
-      send :include, InstanceMethods
-    end
-  end
-  
-#  def self.included(recipient)
-#    recipient.extend(ClassMethods)
+require 'page_engine/class_methods'
+require 'page_engine/instance_methods'
+require 'page_engine/exceptions'
 
-#    recipient.class_eval do
-#      include InstanceMethods
-#    end
-#  end
-
-#  module ClassMethods
-#    # any method placed here will apply to classes
-#    def page_engine(options={})
-#      before_filter :find_page
-#      layout :get_layout
-#      
-#      Page.layouts = (options[:layouts].is_a?(Array) && !options[:layouts].empty?) ? options[:layouts] : []
-#    end
-#  end
-
-  module InstanceMethods
-    def get_layout
-      if @page 
-        @page.layout.blank? ? Page.default_layout : @page.layout
-      else
-        Page.default_layout
-      end      
-    end
+class << ActionController::Base
+  def page_engine(options = {})
     
-    def find_page permalink=nil
-      unless params[:controller].split('/').first == "admin"
-        if permalink
-          @page = Page.includes(:page_parts).published.viewable_by(current_user).where(:permalink => permalink)
-        else
-          @page = Page.includes(:page_parts).published.viewable_by(current_user).with_url(request, params).first
-        end
-        # See http://stackoverflow.com/questions/1595424/request-format-returning
-        # This last format appears when the page is refreshed in IE
-        get_breadcrumbs if request.format.html? || request.format == '*/*'
+    # Check options
+    raise PageEngine::PageEngineException.new("Options for page_engine must be in a hash.") unless options.is_a? Hash
+    options.each do |key, value|
+      unless [:layouts].include?(key)
+        raise PageEngine::PageEngineException.new("Unknown option for page_engine: #{key.inspect} => #{value.inspect}.")
       end
     end
-
-    def page_title_replace models=[]
-      models.each do |m|
-        key = m.class.to_s.underscore
-        @page.title.scan(/\{\{#{key}_([_a-z]*)\}\}/).uniq.flatten.each do |attribute|
-          if m.whitelist.include?(attribute) && m.respond_to?(attribute)
-            @page.title.gsub!("{{#{key}_#{attribute}}}", m[attribute])
-            value = m.send(attribute)
-
-            if value.is_a?(Date) || value.is_a?(Time)
-              value = value.to_formatted_s(:short_ordinal)
-            end
-
-            @page.title.gsub!("{{#{key}_#{attribute}}}", value.to_s)
-          else
-            @page.title.gsub!("{{#{key}_#{attribute}}}", "<span style=\"color: red;\">###NOT SUPPORTED, try #{m.whitelist.to_sentence(:two_words_connector => ' or ', :last_word_connector => ', or')}###")
-          end
-        end
-      end
-    end
-
-    def breadcrumb_replace models=[]
-      models.each do |m|
-        key = m.class.to_s.underscore
-        @breadcrumbs.each do |breadcrumb|
-          if breadcrumb.is_a? Page
-            breadcrumb.title.scan(/\{\{#{key}_([_a-z]*)\}\}/).uniq.flatten.each do |attribute|
-              if m.whitelist.include?(attribute) && m.respond_to?(attribute)
-                breadcrumb.title.gsub!("{{#{key}_#{attribute}}}", m[attribute])
-                value = m.send(attribute)
-
-                if value.is_a?(Date) || value.is_a?(Time)
-                  value = value.to_formatted_s(:short_ordinal)
-                end
-
-                breadcrumb.title.gsub!("{{#{key}_#{attribute}}}", value.to_s)
-              else
-                breadcrumb.title.gsub!("{{#{key}_#{attribute}}}", "<span style=\"color: red;\">###NOT SUPPORTED, try one of #{m.whitelist.join(',')}###")
-              end
-            end
-          end
-        end
-      end
-    end
-
-    private
-
-      def get_breadcrumbs
-        if @page
-          @breadcrumbs = @page.ancestors.published.viewable_by(current_user).all
-        else
-          @breadcrumbs = []
-        end
-      end
-
+  
+    include PageEngine::InstanceMethods
+    extend PageEngine::ClassMethods
+    
+    Page.layouts = options[:layouts].is_a?(Array) ? options[:layouts] : ['application']
   end
 end
-
-ActiveRecord::Base.send :include, PageEngine
-

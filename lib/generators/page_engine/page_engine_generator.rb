@@ -20,9 +20,9 @@ class PageEngineGenerator < Rails::Generators::Base
 
   def create_migrations
     begin
-      migration_template 'create_cms.rb', 'db/migrate/create_cms.rb'
+      migration_template 'create_page_engine.rb', 'db/migrate/create_page_engine.rb'
     rescue
-      puts 'CMS migration already exists'
+      puts 'PageEngine migration already exists'
     end
     sleep 1
     begin

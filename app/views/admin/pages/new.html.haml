@@ -1,0 +1,10 @@
+%h2
+  New page 
+  - if @parent
+    == (child of #{@parent.title})
+    
+= render 'form'
+
+-#  <% if Extras.class_exists?('Asset') -%>
+-#  <%= render 'admin/assets/assets' %>
+-#  <% end -%>

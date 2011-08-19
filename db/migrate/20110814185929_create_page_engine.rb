@@ -20,7 +20,9 @@ class CreatePageEngine < ActiveRecord::Migration
       t.string :layout
       t.text :js
       t.text :css
-      t.string :ancestry
+      t.integer :parent_id
+      t.integer :lft
+      t.integer :rgt
       t.string :authorable_type
       t.integer :authorable_id
 

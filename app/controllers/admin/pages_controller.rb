@@ -28,7 +28,8 @@ class Admin::PagesController < ApplicationController
     @page = Page.new
     Page.page_parts.collect { |page_part| @page.page_parts.build(:title => page_part) }
     @parent = Page.find_by_permalink(params[:page_id])
-    @roles = Extras.class_exists?('Role') ? Role.all : []
+    @roles = PageEngine.class_exists?('Role') ? Role.all : []
+    @page_part_index = 0
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,10 +40,11 @@ class Admin::PagesController < ApplicationController
   # GET /pages/1/edit
   def edit
     @page = Page.includes([:parent, :page_parts]).where({ :permalink => params[:id] })
-    @page = @page.includes(:required_roles) if defined?(Role)
+    @page = @page.includes(:required_roles) if PageEngine.class_exists?('Role')
     @page = @page.first
     @parent = @page.parent
-    @roles = Extras.class_exists?('Role') ? Role.all : []
+    @roles = PageEngine.class_exists?('Role') ? Role.all : []
+    @page_part_index = 0
   end
 
   # POST /pages
@@ -52,14 +54,16 @@ class Admin::PagesController < ApplicationController
     @page = Page.new(params[:page])
 
     respond_to do |format|
-      if @page.save
-        @page.move_to_child_of @parent unless @parent.nil?        
+      if @page.save      
+        
+        @page.move_to_child_of @parent unless @parent.nil?      
+        
         return_path = params.has_key?('continue') ? edit_admin_page_path(@page) : admin_pages_path
 
         format.html { redirect_to(return_path, :notice => 'Page was successfully created.') }
         format.xml  { render :xml => @page, :status => :created, :location => @page }
       else
-        @roles = Extras.class_exists?('Role') ? Role.all : []
+        @roles = PageEngine.class_exists?('Role') ? Role.all : []
         format.html { render :action => "new" }
         format.xml  { render :xml => @page.errors, :status => :unprocessable_entity }
       end
@@ -71,7 +75,7 @@ class Admin::PagesController < ApplicationController
   def update
     @page = Page.includes([:parent, :page_parts]).find(params[:the_page_id])    
 
-    if Extras.class_exists?('Role')
+    if PageEngine.class_exists?('Role')
       params[:page][:required_role_ids] ||= []    
       params[:page][:excluded_role_ids] ||= []
     end
@@ -84,7 +88,7 @@ class Admin::PagesController < ApplicationController
         format.xml  { head :ok }
       else
         @parent = @page.parent
-        @roles = Extras.class_exists?('Role') ? Role.all : []
+        @roles = PageEngine.class_exists?('Role') ? Role.all : []
         format.html { render :action => "edit" }
         format.xml  { render :xml => @page.errors, :status => :unprocessable_entity }
       end
@@ -150,8 +154,14 @@ class Admin::PagesController < ApplicationController
 
     # Retrieve the available routes (:get only) and compile the ones already taken by other pages
     def get_routes
-      @current = Page.just_controller_and_actions.collect{|i| i.taken }.compact
-      @routes = Cmser::RoutesFinder.available
+      @current = Page.just_controller_and_actions.collect{ |i| i.taken }.compact
+      @routes = {}
+      
+      routes = PageEngine.available_routes
+      
+      routes.keys.each do |controller|
+        @routes[controller.humanize] = routes[controller].collect { |action| ["#{controller.humanize}::#{action.humanize}", "#{controller}|#{action}"] }
+      end
     end
 end
 

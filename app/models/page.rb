@@ -1,6 +1,6 @@
 class Page < ActiveRecord::Base
   default_scope :order => 'lft asc'
-#  acts_as_nested_set
+  acts_as_nested_set
 
   # Relationships
   has_many :descendants, :class_name => "Page", :conditions => 'pages.lft between #{self.lft} and #{self.rgt}'
@@ -142,8 +142,6 @@ class Page < ActiveRecord::Base
     return "live" if self.published?
     status.downcase
   end
-
-  # Public class methods
 
   class << self
     attr_accessor :layouts

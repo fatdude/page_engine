@@ -3,8 +3,10 @@ require "page_engine/engine"
 require 'page_engine/extensions'
 require 'page_engine/helpers'
 require 'page_engine/routes_finder'
-require 'haml'
 require 'RedCloth'
+require 'haml'
+require 'simple_form'
+require 'awesome_nested_set'
 
 module PageEngine
   def self.class_exists?(class_name)
