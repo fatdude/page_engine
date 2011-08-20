@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  default_scope :order => 'lft asc'
+  default_scope order('lft asc')
   acts_as_nested_set
 
   # Relationships
@@ -34,11 +34,11 @@ class Page < ActiveRecord::Base
   validates :url, :uniqueness => true, :allow_nil => true, :allow_blank => true
   validates_associated :page_parts
 
-  # Named scopes
-  scope :by_permalink, lambda { |permalink| where(["permalink = ?", permalink]) }
+  # Scopes
+  scope :by_permalink, lambda { |permalink| where(:permalink => permalink) }
   scope :published, lambda { where(["(status = 'Published' and ? between publish_from and publish_to) or (status = 'Published' and publish_from is null and publish_to is null)", DateTime.now]) }
   scope :published_or_hidden, lambda { where(["(status = 'Published' and ? between publish_from and publish_to) or (status = 'Published' and publish_from is null and publish_to is null) or status = 'Hidden'", DateTime.now]) }
-  scope :root_only, where("parent_id is null")
+  scope :root_only, where(:parent_id => nil)
   scope :shown_in_sitemap, where({ :display_in_sitemap => true })
   scope :shown_in_menu, where({ :display_in_menu => true })
   scope :just_controller_and_actions, select("controller || '|' || action as taken").group('taken')
@@ -99,13 +99,13 @@ class Page < ActiveRecord::Base
     end
 
     # Roles
-    if Extras.class_exists?('Role')
+    if PageEngine.class_exists?('Role')
       page.required_roles = self.required_roles 
       page.excluded_roles = self.excluded_roles
     end
 
     # Assets
-    if Extras.class_exists?('Asset')
+    if PageEngine.class_exists?('Asset')
       self.attachables.each do |attachable|
         page.attachables << attachable.duplicate
       end
@@ -115,8 +115,8 @@ class Page < ActiveRecord::Base
   end
 
   def is_viewable_by? user
-    if Extras.class_exists?('Role')
-      if Extras.class_exists?('User') && user
+    if PageEngine.class_exists?('Role')
+      if PageEngine.class_exists?('User') && user
         return true if self.roles.length == 0
         self.role_ids.length != (self.role_ids - user.role_ids.uniq).length        
       else
@@ -141,6 +141,15 @@ class Page < ActiveRecord::Base
   def css_status
     return "live" if self.published?
     status.downcase
+  end
+  
+  # Override the protected methods of awesome_nested_set so lft and rgt can be set
+  def lft=(x)
+    self[:lft] = x    
+  end
+  
+  def rgt=(x)
+    self[:rgt] = x
   end
 
   class << self
@@ -170,9 +179,8 @@ class Page < ActiveRecord::Base
     # Scopes
 
     def viewable_by(user)
-      if Extras.class_exists?('Role') && Extras.class_exists?('User')
+      if PageEngine.class_exists?('Role') && PageEngine.class_exists?('User')
         if user
-#          includes(:page_roles).where([ "(page_roles.required_role_id in (:roles) or page_roles.excluded_role_id not in (:roles)) or (page_roles.required_role_id is null and page_roles.excluded_role_id is null)", :roles => user.role_ids ])
           # This is a bit of a kludge until I can figure out how to get it to work properly in a single sql query
           includes(:page_roles).where("pages.id in (?) or (page_roles.required_role_id is null and page_roles.excluded_role_id is null)", PageRole.viewable_page_ids_for(user))
         else

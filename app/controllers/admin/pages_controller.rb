@@ -110,24 +110,15 @@ class Admin::PagesController < ApplicationController
   end
 
 
-  def sort
-    @drag = Page.find_by_id(params[:id])
-    @drop = Page.find_by_id(params[:position_id]).self_and_descendants
-
-    begin
-      case params[:position]
-        when "before"
-          @drag.move_to_left_of @drop.first
-        when "after"
-          @drag.move_to_right_of @drop.first
-        when "child"
-          @drag.move_to_child_of @drop.first
-      end
-      flash[:notice] = "Move was successful"
-    rescue Exception => exc
-      @error = exc.message
-      flash.delete(:notice)
-      flash[:alert] = "Move failure: #{@error}"
+  def sort 
+    params[:pages].values.each do |value|
+      @page = Page.find_by_id(value[:item_id])
+      parent_id = value[:parent_id] == 'root' ? nil : value[:parent_id]
+      
+      @page.parent_id = parent_id
+      @page.lft = value[:left].to_i - 1
+      @page.rgt = value[:right].to_i - 1
+      @page.save
     end
 
     @pages = Page.all.group_by(&:parent_id)
