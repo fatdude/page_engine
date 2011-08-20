@@ -32,7 +32,7 @@
   *display: inline;
 }
 
-/*
+
 .icon.add {
   background-image: url(/assets/page_engine/add.png);
 }
@@ -44,8 +44,6 @@
 .icon.waiting {
   background-image: url(/assets/page_engine/waiting.gif);
 }
-
-*/
 
 form.button_to {
   display: inline;
