@@ -1,0 +1,11 @@
+%ul{ :class => options['class'], :id => options['id'] }
+  - if options['include_root']
+    %li{:class => page_menu_class(root_page)}
+      - if root_page.no_link || (root_page == options['current'] && !options['link_current'])
+        %span= replace_title_for(root_page)
+      - else
+        = link_to_page(root_page)
+        
+  - if grouped_pages[root_page.id]
+    - grouped_pages[root_page.id].each do |page|
+      = render 'pages/nav_item', :options => options, :page => page, :grouped_pages => grouped_pages, :level => level

@@ -1,0 +1,10 @@
+!!!
+%html
+  %head
+    %title Dummy Admin
+    = stylesheet_link_tag 'page_engine/admin/cms', "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags   
+  %body    
+    #content
+      = yield

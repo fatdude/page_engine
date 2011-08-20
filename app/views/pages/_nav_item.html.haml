@@ -1,0 +1,10 @@
+%li{ :class => page_menu_class(page) }
+  - if page.no_link || (page == options[:current] && !options[:link_current])
+    %span= replace_title_for(page)
+  - else 
+    = link_to_page(page)
+  
+  - if grouped_pages[page.id] && level + 1 <= options['depth']
+    %ul{ :class => "sublist_#{level}"}
+      - grouped_pages[page.id].each do |page|
+        = render 'pages/nav_item', :options => options, :page => page, :grouped_pages => grouped_pages, :level => level + 1

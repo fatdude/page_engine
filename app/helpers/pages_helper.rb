@@ -64,7 +64,7 @@ module PagesHelper
       'part' => 'body'
     }.merge!(options.stringify_keys)
     
-    default_options[:page].page_parts.detect { |p| p.title == default_options[:part].to_s } if default_options[:page]
+    default_options['page'].page_parts.detect { |p| p.title == default_options['part'].to_s } if default_options['page']
   end
   
   def page_snippet(name, default="Page snippet not found")
@@ -130,22 +130,15 @@ module PagesHelper
       'link_current' => false,
       'depth' => 2
     }.merge!(options.stringify_keys)
-    
-#    options[:depth] = (options[:depth].nil? || options[:depth] < 1) ? 2 : options[:depth] + 1
+
+    current_user = nil unless defined?(current_user)
 
     root_page = Page.published_or_hidden.viewable_by(current_user).find_by_permalink(permalink.to_s)
-    return "<p><em>Error:</em> Root page not found</p>" unless root_page
+    return "<p><em>Error:</em> Root page not found</p>".html_safe unless root_page
 
     grouped_pages = root_page.self_and_descendants.viewable_by(current_user).shown_in_menu.published.group_by(&:parent_id)
 
-    html = "<ul class=\"#{options[:class]}\" id=\"#{options[:id]}\">\n"
-      if default_options['include_root']
-        html += "<li#{page_menu_class(root_page)}>#{root_page.no_link || (root_page == default_options['current'] && !default_options['link_current']) ? "<span>" + replace_title_for(root_page) + "</span>" : link_to_page(root_page)}"
-      end
-      html = build_nav_nodes(root_page, grouped_pages, html, 1, options)
-    html += "</ul>\n"
-    
-    html.html_safe
+    render 'pages/navigation', :options => default_options, :root_page => root_page, :grouped_pages => grouped_pages, :level => 1
   end
   
   def filter_select(target, options={})
@@ -164,25 +157,6 @@ module PagesHelper
 
   private
 
-    def build_nav_nodes root, grouped_pages, html, level, options={}
-      grouped_pages[root.id] ||= []
-
-      grouped_pages[root.id].each do |page|
-        if level <= options[:depth]
-          html += "<li#{page_menu_class page}>#{page.no_link || (page == options[:current] && !options[:link_current]) ? "<span>" + replace_title_for(page) + "</span>" : link_to_page(page)}"
-          if grouped_pages.keys.include?(page.id)
-            html += "\n<ul class=\"sublist_#{level}\">\n"
-            level += 1
-            html = build_nav_nodes page, grouped_pages, html, level, options
-            level -= 1
-            html += "</ul>\n"
-          end
-          html += "</li>\n"
-        end
-      end
-      return html
-    end
-
     # To add a class to the root of the tree that the current page appears in
     def mark_as_root_of_current? page
       if page.root?
@@ -195,13 +169,7 @@ module PagesHelper
     def page_menu_class page
       css_classes = []
       css_classes << page.menu_css_class unless page.menu_css_class.blank?
-      css_classes << "selected" if mark_as_root_of_current? page
-
-      unless css_classes.empty?
-        return " class=\"#{css_classes.join(' ')}\""
-      else
-        return ""
-      end
+      css_classes << "selected" if mark_as_root_of_current?(page)
     end
 end
 

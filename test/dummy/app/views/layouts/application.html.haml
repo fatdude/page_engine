@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %title Dummy
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags   
+  %body
+    #nav
+      = navigation 'test-2', :include_root => true
+      
+    #header
+      = breadcrumbs
+    
+    #content
+      = yield

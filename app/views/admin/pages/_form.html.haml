@@ -36,7 +36,7 @@
     = f.input :url
     
     = f.input :controller_action do 
-      = f.select :controller_action, grouped_options_for_select(@routes)
+      = f.select :controller_action, grouped_options_for_select(@routes), :include_blank => true
         
     = f.input :display_in_menu
     = f.input :display_in_sitemap

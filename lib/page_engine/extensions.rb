@@ -16,6 +16,9 @@ class << ActionController::Base
     include PageEngine::InstanceMethods
     extend PageEngine::ClassMethods
     
+    before_filter :find_page
+    layout :get_layout
+    
     Page.layouts = options[:layouts].is_a?(Array) ? options[:layouts] : ['application']
   end
 end
