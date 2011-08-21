@@ -2,8 +2,6 @@
 //= require markitup/jquery.markitup
 //= require markitup/sets/html/set
 //= require markitup/sets/textile/set
-//= require textile-editor
-//= require textile-editor-config
 //= require jquery.ui.nestedSortable
 
 $(document).ready(function(){
@@ -51,7 +49,7 @@ $(document).ready(function(){
 
   $('textarea[data-filter=textile]').markItUp(markitup_html_settings);
   
-  $('textarea[data-filter=wysiwyg]').markItUp(markitup_html_settings);
+  $('textarea[data-filter=html]').markItUp(markitup_html_settings);
 
   $('select.filter').live('change', function(){
     textarea = $('#' + $(this).attr('rel'));
