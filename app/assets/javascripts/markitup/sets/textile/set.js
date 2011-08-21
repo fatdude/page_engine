@@ -36,6 +36,22 @@ markitup_textile_settings = {
 		{name:'Quotes', openWith:'bq(!(([![Class]!]))!). '},
 		{name:'Code', openWith:'@', closeWith:'@'},
 		{separator:'---------------' },
-		{name:'Preview', call:'preview', className:'preview'}
+		{name:'Preview', call:'preview', className:'preview'},
+	  {name:'Table generator', 
+		  className:'tablegenerator', 
+		  placeholder:"Your text here...",
+		  replaceWith:function(h) {
+			  cols = prompt("How many cols?");
+			  rows = prompt("How many rows?");
+			  html = "";
+			  for (r = 0; r < rows; r++) {
+				  for (c = 0; c < cols; c++) {
+					  html += "|"+(h.placeholder||"");	
+				  }
+				  html += "|\n";
+			  }
+			  return html;
+		  }
+	  }
 	]
 }

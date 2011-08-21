@@ -58,3 +58,7 @@
 .textile.markItUp .preview a {
 	background-image:url(/assets/markitup/sets/textile/preview.png);
 }
+
+.textile.markItUp .tablegenerator a {
+	background-image:url(/assets/markitup/sets/textile/table.png);
+}

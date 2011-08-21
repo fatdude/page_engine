@@ -49,14 +49,22 @@ $(document).ready(function(){
     return false;
   });
   
-  $('textarea[data-filter=css]').markItUp(markitup_css_settings).parents('.markItUp').addClass('css');  
+  $('textarea[data-filter=css]').each(function(){
+    add_css($(this));
+  });  
 
-  $('textarea[data-filter=textile]').markItUp(markitup_textile_settings);
+  $('textarea[data-filter=textile]').each(function(){
+    add_textile($(this));
+  });  
   
-  $('textarea[data-filter=markdown]').markItUp(markitup_markdown_settings);
+  $('textarea[data-filter=markdown]').each(function(){
+    add_markdown($(this));
+  });  
   
-  $('textarea[data-filter=html]').markItUp(markitup_html_settings);
-
+  $('textarea[data-filter=html]').each(function(){
+    add_html($(this));
+  });  
+  
   $('select.filter').live('change', function(){
     textarea = $('#' + $(this).attr('rel'));
     filter = textarea.attr('data-filter');
@@ -133,6 +141,13 @@ add_markdown = function(textarea){
   textarea.markItUp(markitup_markdown_settings);
   textarea.parents('.markItUp').addClass('markdown');
 }
+
+add_css = function(textarea){
+  remove_editors(textarea);
+  textarea.markItUp(markitup_css_settings);
+  textarea.parents('.markItUp').addClass('css');
+}
+
 
 remove_editors = function(textarea){
   textarea.markItUpRemove();

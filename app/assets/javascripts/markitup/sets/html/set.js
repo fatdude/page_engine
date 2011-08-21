@@ -35,6 +35,30 @@ markitup_html_settings = {
 		{name:'Link', key:'L', openWith:'<a href="[![Link:!:http://]!]"(!( title="[![Title]!]")!)>', closeWith:'</a>', placeHolder:'Your text to link...' },
 		{separator:'---------------' },
 		{name:'Clean', className:'clean', replaceWith:function(markitup) { return markitup.selection.replace(/<(.*?)>/g, "") } },
-		{name:'Preview', className:'preview', call:'preview' }
+		{name:'Preview', className:'preview', call:'preview' },{	name:'Table generator', 
+			className:'tablegenerator', 
+			placeholder:"Your text here...",
+			replaceWith:function(markItUp) {
+				var cols = prompt("How many cols?"),
+					rows = prompt("How many rows?"),
+					html = "<table>\n";
+				if (markItUp.altKey) {
+					html += " <tr>\n";
+					for (var c = 0; c < cols; c++) {
+						html += "! [![TH"+(c+1)+" text:]!]\n";	
+					}
+					html+= " </tr>\n";
+				}
+				for (var r = 0; r < rows; r++) {
+					html+= " <tr>\n";
+					for (var c = 0; c < cols; c++) {
+						html += "  <td>"+(markItUp.placeholder||"")+"</td>\n";	
+					}
+					html+= " </tr>\n";
+				}
+				html += "<table>\n";
+				return html;
+			}
+		}
 	]
 }

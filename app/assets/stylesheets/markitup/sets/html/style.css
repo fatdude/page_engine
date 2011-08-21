@@ -54,6 +54,11 @@
 .html.markItUp .clean a {
 	background-image:url(/assets/markitup/sets/html/clean.png);
 }
+
 .html.markItUp .preview a {
 	background-image:url(/assets/markitup/sets/html/preview.png);
+}
+
+.html.markItUp .tablegenerator a {
+	background-image:url(/assets/markitup/sets/html/table.png);
 }
