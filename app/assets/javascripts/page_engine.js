@@ -4,6 +4,7 @@
 //= require markitup/sets/textile/set
 //= require markitup/sets/markdown/set
 //= require markitup/sets/css/set
+//= require markitup/sets/javascript/set
 //= require jquery.ui.nestedSortable
 
 $(document).ready(function(){
@@ -51,6 +52,10 @@ $(document).ready(function(){
   
   $('textarea[data-filter=css]').each(function(){
     add_css($(this));
+  });  
+  
+  $('textarea[data-filter=javascript]').each(function(){
+    add_javascript($(this));
   });  
 
   $('textarea[data-filter=textile]').each(function(){
@@ -148,6 +153,11 @@ add_css = function(textarea){
   textarea.parents('.markItUp').addClass('css');
 }
 
+add_javascript = function(textarea){
+  remove_editors(textarea);
+  textarea.markItUp(markitup_javascript_settings);
+  textarea.parents('.markItUp').addClass('javascript');
+}
 
 remove_editors = function(textarea){
   textarea.markItUpRemove();
