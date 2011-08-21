@@ -11,15 +11,17 @@
         %label New page part name
         = text_field_tag :new_page_part_name 
         = link_to_add_fields 'Add page part', f, :page_parts
+        
       %ul.tabs
         - @page.page_parts.each do |page_part|
           %li{ :class => "#{page_part.title.parameterize} #{'tab_with_errors' if page_part.errors.any?}"}
             = link_to page_part.title, "##{page_part.title.parameterize}_#{page_part.id}"
-            
-      = f.fields_for :page_parts do |builder|
-        .page_part{ :id => "#{@page.page_parts[@page_part_index.to_i].title.parameterize}_#{ @page.page_parts[@page_part_index.to_i].id}" }
-          = render 'page_part_fields', :f => builder
-        - @page_part_index += 1
+      
+      - @page.page_parts.each do |page_part|
+        = f.simple_fields_for page_part do |builder|
+          .page_part{ :id => "#{page_part.title.parameterize}_#{page_part.id}" }          
+            = render 'page_part_fields', :f => builder
+
         
     - unless @roles.empty?
       = f.association :required_roles, :as => :check_boxes

@@ -140,6 +140,10 @@ class Admin::PagesController < ApplicationController
       format.js
     end
   end
+  
+  def parse_content
+    render :text => RedCloth.new(params[:data]).to_html    
+  end
 
   private
 

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :pages do
       collection do
         put :sort
+        post :parse_content
       end
 
       member do

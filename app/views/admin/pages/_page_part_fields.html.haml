@@ -1,0 +1,9 @@
+.delete
+  = f.hidden_field :_destroy
+  = link_to 'Delete', '#', :class => 'icon delete', :title => "Delete the current page part"
+
+= f.error_notification
+
+= f.input :title, :class => 'page_part_title'
+= f.input :filter, :collection => Page.filters, :include_blank => false, :class => 'filter', :input_html => { :class => 'filter', :rel => "page_part_content_#{f.object.id}" }
+= f.input :content, :input_html => { 'data-filter' => f.object.filter, :class => 'editor ignore_tab', :id => "page_part_content_#{f.object.id}" }

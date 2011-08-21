@@ -120,6 +120,7 @@ $(document).ready(function(){
 });
 
 add_wysiswyg = function(textarea){
+  console.debug('Adding markitup');
   textarea.markItUp(markitup_settings);
 }
 
@@ -131,6 +132,7 @@ add_textile = function(textarea){
 }
 
 remove_wysiwyg = function(textarea){
+  console.debug('removing markitup');
   textarea.markItUpRemove();
 }
 

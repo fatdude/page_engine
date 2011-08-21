@@ -11,7 +11,8 @@
 // Feel free to add more tags
 // -------------------------------------------------------------------
 markitup_settings = {
-	previewParserPath:	'', // path to your Textile parser
+  previewTemplatePath: '/assets/markitup/templates/preview.html',
+	previewParserPath:	'/admin/pages/parse_content', // path to your Textile parser
 	onShiftEnter:		{keepDefault:false, replaceWith:'\n\n'},
 	markupSet: [
 		{name:'Heading 1', key:'1', openWith:'h1(!(([![Class]!]))!). ', placeHolder:'Your title here...' },
