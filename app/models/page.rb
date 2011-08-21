@@ -170,7 +170,7 @@ class Page < ActiveRecord::Base
     end
 
     def filters
-      %w{ none html textile erb erb+textile }
+      %w{ none html textile markdown erb erb+textile }
     end
 
     def page_parts

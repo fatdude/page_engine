@@ -1,0 +1,54 @@
+/* -------------------------------------------------------------------
+// markItUp!
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+.markdown.markItUp .markItUpButton1 a {
+	background-image:url(/assets/markitup/sets/markdown/h1.png); 
+}
+.markdown.markItUp .markItUpButton2 a {
+	background-image:url(/assets/markitup/sets/markdown/h2.png); 
+}
+.markdown.markItUp .markItUpButton3 a {
+	background-image:url(/assets/markitup/sets/markdown/h3.png); 
+}
+.markdown.markItUp .markItUpButton4 a {
+	background-image:url(/assets/markitup/sets/markdown/h4.png); 
+}
+.markdown.markItUp .markItUpButton5 a {
+	background-image:url(/assets/markitup/sets/markdown/h5.png); 
+}
+.markdown.markItUp .markItUpButton6 a {
+	background-image:url(/assets/markitup/sets/markdown/h6.png); 
+}
+
+.markdown.markItUp .markItUpButton7 a {
+	background-image:url(/assets/markitup/sets/markdown/bold.png);
+}
+.markdown.markItUp .markItUpButton8 a {
+	background-image:url(/assets/markitup/sets/markdown/italic.png);
+}
+
+.markdown.markItUp .markItUpButton9 a {
+	background-image:url(/assets/markitup/sets/markdown/list-bullet.png);
+}
+.markdown.markItUp .markItUpButton10 a {
+	background-image:url(/assets/markitup/sets/markdown/list-numeric.png);
+}
+
+.markdown.markItUp .markItUpButton11 a {
+	background-image:url(/assets/markitup/sets/markdown/picture.png); 
+}
+.markdown.markItUp .markItUpButton12 a {
+	background-image:url(/assets/markitup/sets/markdown/link.png);
+}
+
+.markdown.markItUp .markItUpButton13 a	{
+	background-image:url(/assets/markitup/sets/markdown/quotes.png);
+}
+.markdown.markItUp .markItUpButton14 a	{
+	background-image:url(/assets/markitup/sets/markdown/code.png);
+}
+
+.markdown.markItUp .preview a {
+	background-image:url(/assets/markitup/sets/markdown/preview.png);
+}

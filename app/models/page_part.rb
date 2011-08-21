@@ -17,7 +17,9 @@ class PagePart < ActiveRecord::Base
         when "none"
           content.html_safe
         when "textile"
-          textilize(content).html_safe
+          RedCloth.new(content).to_html
+        when "markdown"
+          BlueCloth.new(content).to_html
         when "erb"
           require "erb"
           eval(ERB.new(content).src).html_safe

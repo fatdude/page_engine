@@ -145,6 +145,8 @@ class Admin::PagesController < ApplicationController
     case params[:data_type]
       when 'textile'
         render :text => RedCloth.new(params[:data]).to_html
+      when 'markdown'
+        render :text => BlueCloth.new(params[:data]).to_html
       else    
         render :nothing => true
     end
