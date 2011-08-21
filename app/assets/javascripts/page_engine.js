@@ -1,5 +1,5 @@
 //= require jquery-ui-1.8.15.custom.min
-//= require markitup/jquery.markitup
+//= require jquery.markitup
 //= require markitup/sets/html/set
 //= require markitup/sets/textile/set
 //= require jquery.ui.nestedSortable
@@ -109,11 +109,13 @@ $(document).ready(function(){
 add_html = function(textarea){
   remove_editors(textarea);
   textarea.markItUp(markitup_html_settings);
+  textarea.parents('.markItUp').addClass('html');
 }
 
 add_textile = function(textarea){
   remove_editors(textarea);
   textarea.markItUp(markitup_textile_settings);
+  textarea.parents('.markItUp').addClass('textile');
 }
 
 remove_html = function(textarea){

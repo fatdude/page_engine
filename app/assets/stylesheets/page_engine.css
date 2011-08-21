@@ -1,6 +1,8 @@
 /*
  * require markitup/style
  *= require markitup/skins/markitup/style
+ *= require markitup/sets/html/style
+ *= require markitup/sets/textile/style
 */
 
 .js .hidden {

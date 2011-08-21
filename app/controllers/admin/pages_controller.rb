@@ -142,7 +142,12 @@ class Admin::PagesController < ApplicationController
   end
   
   def parse_content
-    render :text => RedCloth.new(params[:data]).to_html    
+    case params[:data_type]
+      when 'textile'
+        render :text => RedCloth.new(params[:data]).to_html
+      else    
+        render :nothing => true
+    end
   end
 
   private
