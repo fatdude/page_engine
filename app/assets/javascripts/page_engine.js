@@ -178,10 +178,10 @@ add_fields = function(link, association, content){
       $('#new_page_part_name').val('');
     }
     else {
-      flash_message('Name already exists', 'alert');      
+      alert('Name already exists');      
     }
   } else {
-    flash_message('You need to specify a name', 'alert');
+    alert('You need to specify a name');
   }
 }
 
