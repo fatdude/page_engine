@@ -1,3 +1,10 @@
+//= require jquery-ui-1.8.15.custom.min
+//= require markitup/jquery.markitup
+//= require markitup/sets/textile/set
+//= require textile-editor
+//= require textile-editor-config
+//= require jquery.ui.nestedSortable
+
 $(document).ready(function(){
   
   $('ol#page_engine').nestedSortable({
@@ -27,11 +34,6 @@ $(document).ready(function(){
     return false;
   });
   
-  CKEDITOR.editorConfig = function( config )
-  {
-	  config.basePath = '/assets/ckeditor';
-  };
-
   var selected_tab = 0;
   var page_parts = $('.page_parts').tabs({
     select: function(event, ui){
@@ -50,7 +52,7 @@ $(document).ready(function(){
     TextileEditor.initialize($(this).attr('id'));
   });
   
-  $('textarea[data-filter=wysiwyg]').ckeditor();
+  $('textarea[data-filter=wysiwyg]').markItUp(markitup_settings);
 
   $('select.filter').live('change', function(){
     console.debug('Going to change the filter');
@@ -118,7 +120,7 @@ $(document).ready(function(){
 });
 
 add_wysiswyg = function(textarea){
-  textarea.ckeditor();
+  textarea.markItUp(markitup_settings);
 }
 
 add_textile = function(textarea){
@@ -129,9 +131,7 @@ add_textile = function(textarea){
 }
 
 remove_wysiwyg = function(textarea){
-  textarea.ckeditor(function(){
-    this.destroy();
-  });
+  textarea.markItUpRemove();
 }
 
 remove_textile = function(textarea){

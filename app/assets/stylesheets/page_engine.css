@@ -1,3 +1,10 @@
+/*
+ * require markitup/style
+ *= require markitup/skins/markitup/style
+ *= require markitup/sets/textile/style
+ *= require textile-editor
+*/
+
 /* --- GENERAL --- */
 
 .js .hidden {

@@ -6,12 +6,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui-1.8.15.custom.min
-//= require ckeditor/ckeditor
-//= require ckeditor/adapters/jquery
-//= require textile-editor
-//= require textile-editor-config
-//= require jquery.ui.nestedSortable
 //= require page_engine
 //= require_tree .
 
