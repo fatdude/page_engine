@@ -5,15 +5,9 @@
  *= require textile-editor
 */
 
-/* --- GENERAL --- */
-
 .js .hidden {
   display: none;
 }
-
-/* --- GENERAL END --- */
-
-/* --- ICONS --- */
 
 .icon, nav.pagination .first a, nav.pagination .prev a, nav.pagination .next a, nav.pagination .last a {
   display: -moz-inline-box;
@@ -39,7 +33,6 @@
   *display: inline;
 }
 
-
 .icon.add {
   background-image: url(/assets/page_engine/add.png);
 }
@@ -59,10 +52,6 @@ form.button_to {
 form.button_to * {
   display: inline;
 }
-
-/* --- ICONS END --- */
-
-/* --- PAGES --- */
 
 ol#page_engine,
 ol#page_engine ol {
@@ -125,32 +114,6 @@ ol#page_engine .icon.review {
   background-image: url(/assets/page_engine/page_gear.png);
 }
 
-ol#page_engine .drop_line {
-  height: 2px;
-  border: solid white 1px;
-}
-
-ol#page_engine .drop_line img {
-  margin: -18px 0 0 -20px;
-  vertical-align: middle;
-  display: none;
-}
-
-ol#page_engine .drop_target img {
-  display: inline;
-}
-
-ol#page_engine .drop_line.drop_target {
-  background: #eaeaea;/*#efefef url(../../images/admin/cms/page_line.jpg) repeat-y 0 0;*/
-}
-
-ol.drag_hover_over {
-  border-left: solid #eaeaea 1px !important;
-}
-
-
-/* --- PAGES END --- */
-
 .page_part .delete {
   float: right;
 }
@@ -162,8 +125,6 @@ ol.drag_hover_over {
 .page_part .field textarea {
   width: 98.5%;
 }
-
-/* --- PAGE --- */
 
 .tabs li.tab_with_errors {
   background: #CC0000 !important;
@@ -239,10 +200,6 @@ ol.drag_hover_over {
   display: inline;
 }
 
-/* --- PAGE END --- */
-
-/*--- PAGE SNIPPETS ---*/
-
 form#page_snippet .field.name br,
 form#page_snippet .field.filter br {
   display: none;
@@ -261,5 +218,3 @@ form#page_snippet .field.name input[type="text"] {
 form#page_snippet .field.content textarea {
   width: 98.4%;
 }
-
-/*--- PAGE SNIPPETS END ---*/
