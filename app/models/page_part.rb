@@ -5,8 +5,6 @@ class PagePart < ActiveRecord::Base
   # Validations
   validates :title, :uniqueness => {:scope => "page_id"}, :presence => true
 
-  # Public methods
-
   def duplicate
     page_part = PagePart.new(self.attributes)
     page_part.save
@@ -26,7 +24,7 @@ class PagePart < ActiveRecord::Base
         when "erb+textile"
           require "erb"
           textilize eval(ERB.new(content).src).html_safe
-        when "wysiwyg"
+        when "html"
           content.html_safe
       end      
     end

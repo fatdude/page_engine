@@ -17,7 +17,7 @@ class PageSnippet < ActiveRecord::Base
       when "erb+textile"
         require "erb"
         textilize eval(ERB.new(content).src).html_safe
-      when "wysiwyg"
+      when "html"
         content.html_safe
     end
   end

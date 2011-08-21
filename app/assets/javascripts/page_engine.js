@@ -1,5 +1,6 @@
 //= require jquery-ui-1.8.15.custom.min
 //= require markitup/jquery.markitup
+//= require markitup/sets/html/set
 //= require markitup/sets/textile/set
 //= require textile-editor
 //= require textile-editor-config
@@ -47,31 +48,22 @@ $(document).ready(function(){
     page_parts.tabs('remove', selected_tab);     
     return false;
   });
+
+  $('textarea[data-filter=textile]').markItUp(markitup_html_settings);
   
-  $('textarea[data-filter=textile]').each(function(){
-    TextileEditor.initialize($(this).attr('id'));
-  });
-  
-  $('textarea[data-filter=wysiwyg]').markItUp(markitup_settings);
+  $('textarea[data-filter=wysiwyg]').markItUp(markitup_html_settings);
 
   $('select.filter').live('change', function(){
-    console.debug('Going to change the filter');
     textarea = $('#' + $(this).attr('rel'));
     filter = textarea.attr('data-filter');
     
     switch ($(this).val()){
-      case 'wysiwyg':
-        if (filter == 'textile') {
-          remove_textile(textarea);
-        }
-        add_wysiswyg(textarea)
-        textarea.attr('data-filter', 'wysiwyg');
+      case 'html':
+        add_html(textarea)
+        textarea.attr('data-filter', 'html');
         break;
       case 'textile':
-        if (filter == 'wysiwyg') {
-          remove_wysiwyg(textarea);
-        }
-        add_textile(textarea)
+        add_textile(textarea);
         textarea.attr('data-filter', 'textile');
         break;
       case 'erb':
@@ -79,9 +71,6 @@ $(document).ready(function(){
         textarea.attr('data-filter', 'erb');
         break;
       case 'erb+textile':
-        if (filter == 'wysiwyg') {
-          remove_wysiwyg(textarea);
-        }
         add_textile(textarea)
         textarea.attr('data-filter', 'erb+textile');
         break;
@@ -119,37 +108,26 @@ $(document).ready(function(){
   });
 });
 
-add_wysiswyg = function(textarea){
-  console.debug('Adding markitup');
-  textarea.markItUp(markitup_settings);
+add_html = function(textarea){
+  remove_editors(textarea);
+  textarea.markItUp(markitup_html_settings);
 }
 
 add_textile = function(textarea){
-  id = textarea.attr('id');
-  if ($('#textile-toolbar-' + id).length == 0){
-    TextileEditor.initialize(id);
-  } 
+  remove_editors(textarea);
+  textarea.markItUp(markitup_textile_settings);
 }
 
-remove_wysiwyg = function(textarea){
-  console.debug('removing markitup');
+remove_html = function(textarea){
   textarea.markItUpRemove();
 }
 
 remove_textile = function(textarea){
-  $('#textile-toolbar-' + textarea.attr('id')).remove();
+  textarea.markItUpRemove();
 }
 
 remove_editors = function(textarea){
-  filter = textarea.attr('data-filter');
-  
-  if (filter == 'wysiwyg') {
-    remove_wysiwyg(textarea);
-  }
-  
-  if (filter == 'textile' || filter == 'erb+textile') {
-    remove_textile(textarea);
-  }
+  textarea.markItUpRemove();
 }
 
 add_fields = function(link, association, content){
