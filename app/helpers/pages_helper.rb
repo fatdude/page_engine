@@ -19,6 +19,26 @@ module PagesHelper
     end
   end
   
+  def page_js
+    if @page && !@page.js.blank?
+      javascript_tag do 
+        @page.js
+      end
+    end
+  end
+  
+  def page_css
+    "<style>\n#{@page.css}\n</style>".html_safe if @page && !@page.css.blank?
+  end
+  
+  def page_meta_keywords
+    "<meta name=\"keywords\" content=\"#{@page.meta_keywords}\" />".html_safe if @page && !@page.meta_keywords.blank?
+  end
+  
+  def page_meta_description
+    "<meta name=\"description\" content=\"#{@page.meta_description}\" />".html_safe if @page && !@page.meta_description.blank?
+  end
+  
   # Usage:
   # You can use the attributes of any instance variables and insert them in the title
   # For example:
