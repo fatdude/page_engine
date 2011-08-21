@@ -50,6 +50,7 @@ class Admin::PagesController < ApplicationController
   # POST /pages
   # POST /pages.xml
   def create
+    debugger
     @parent = Page.find_by_permalink(params[:page_id])
     @page = Page.new(params[:page])
 

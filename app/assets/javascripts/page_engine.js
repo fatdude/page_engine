@@ -169,12 +169,14 @@ add_fields = function(link, association, content){
   if (page_part_name != ''){
     if ($('#' + page_part_name.replace(/[^a-z0-9\-_]+/ig, '-')).length == 0){
       var new_id = new Date().getTime();
-      var regexp = new RegExp("new_" + association, "g");
+      
+      content = content.replace(/name="page_parts/g, 'name="page[page_parts_attributes][' + new_id + ']');
+      content = content.replace(/for="page_parts/g, 'for="page_page_parts_attributes_' + new_id);
 
       $('.page_parts').tabs('add', '#' + new_id, page_part_name);
-      $('#' + new_id).html(content.replace(regexp, new_id));
+      $('#' + new_id).html(content);
       $('#' + new_id).addClass('page_part');
-      $('#' + new_id + ' .field:first input').val(page_part_name);
+      $('#' + new_id + ' .input:first input').val(page_part_name);
       $('#new_page_part_name').val('');
     }
     else {
