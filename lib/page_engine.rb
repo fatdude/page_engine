@@ -36,3 +36,7 @@ module PageEngine
     available
   end
 end
+
+ActionView::Helpers::AssetTagHelper.register_javascript_expansion :page_engine => ["page_engine/page_engine", "jquery.markitup"]
+ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion :page_engine => ["page_engine/page_engine"]
+
