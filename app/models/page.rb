@@ -3,7 +3,8 @@ class Page < ActiveRecord::Base
   acts_as_nested_set
 
   # Relationships
-  has_many :descendants, :class_name => "Page", :conditions => 'pages.lft between #{self.lft} and #{self.rgt}'
+#  has_many :descendants, :class_name => "Page", :conditions => proc { "pages.lft between #{self.send(:lft)} and #{self.send(:rgt)}" }
+#  has_many :ancestors, :class_name => "Page", :conditions => proc { "(pages.lft <= #{self.send(:lft)} AND pages.rgt >= #{self.send(:rgt)}) AND (pages.id != #{self.send(:id)})" }, :foreign_key => false
   has_many :pages, :foreign_key => :parent_id
   has_many :page_parts, :dependent => :destroy
   
@@ -210,26 +211,26 @@ class Page < ActiveRecord::Base
 
   private
 
-  def set_permalink
-    self.permalink = self[:permalink].blank? ? self.title.parameterize : self[:permalink].parameterize
-    self.menu_css_class = self.permalink if self[:menu_css_class].blank?
-  end
-
-  def set_controller_and_action
-    if @controller_action
-      controller_and_action = @controller_action.split('|')
-      self.controller = controller_and_action.first
-      self.action = controller_and_action.last
-    else
-      self.controller = nil
-      self.action = nil
+    def set_permalink
+      self.permalink = self[:permalink].blank? ? self.title.parameterize : self[:permalink].parameterize
+      self.menu_css_class = self.permalink if self[:menu_css_class].blank?
     end
-  end
 
-  def check_publish_window
-    if @no_publish_window == "1"
-      self.publish_to = self.publish_from = nil
+    def set_controller_and_action
+      if @controller_action
+        controller_and_action = @controller_action.split('|')
+        self.controller = controller_and_action.first
+        self.action = controller_and_action.last
+      else
+        self.controller = nil
+        self.action = nil
+      end
     end
-  end
+
+    def check_publish_window
+      if @no_publish_window == "1"
+        self.publish_to = self.publish_from = nil
+      end
+    end
 end
 
