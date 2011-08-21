@@ -25,7 +25,7 @@
       = f.association :required_roles, :as => :check_boxes
       = f.association :excluded_roles, :as => :check_boxes
     
-    = f.input :css, :label => 'CSS'
+    = f.input :css, :label => 'CSS', :input_html => { 'data-filter' => 'css' }
     = f.input :js, :label => 'Javascript'
     = f.input :meta_description
     = f.input :meta_keywords

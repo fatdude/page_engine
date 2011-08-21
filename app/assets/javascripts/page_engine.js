@@ -3,6 +3,7 @@
 //= require markitup/sets/html/set
 //= require markitup/sets/textile/set
 //= require markitup/sets/markdown/set
+//= require markitup/sets/css/set
 //= require jquery.ui.nestedSortable
 
 $(document).ready(function(){
@@ -47,6 +48,8 @@ $(document).ready(function(){
     page_parts.tabs('remove', selected_tab);     
     return false;
   });
+  
+  $('textarea[data-filter=css]').markItUp(markitup_css_settings).parents('.markItUp').addClass('css');  
 
   $('textarea[data-filter=textile]').markItUp(markitup_textile_settings);
   
