@@ -32,6 +32,17 @@ class PageEngineGenerator < Rails::Generators::Base
     def copy_stylesheets
       directory 'app/assets/stylesheets', 'public/stylesheets'
       directory 'vendor/assets/stylesheets', 'public/stylesheets'
+      
+      puts 'Updating image location'
+      ['css', 'textile', 'markdown', 'html', 'javascript'].each do |area|
+        gsub_file "public/stylesheets/markitup/sets/#{area}/style.css", /\/assets\//, '/images/'
+      end
+      
+      ['markitup', 'simple'].each do |area|
+        gsub_file "public/stylesheets/markitup/skins/#{area}/style.css", /\/assets\//, '/images/'
+      end
+      
+      gsub_file "public/stylesheets/page_engine.css", /\/assets\//, '/images/'
     end
     
     def copy_javascripts
