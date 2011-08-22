@@ -9,6 +9,10 @@ module PagesHelper
   def cmser_admin_css
     ['admin/cms', 'textile-editor']
   end
+  
+  def rails_version
+    Rails.version.split('.')[1] == '0' ? '3.0' : '3.1'
+  end
 
   # Set the page title 
   def page_title(default_text)
