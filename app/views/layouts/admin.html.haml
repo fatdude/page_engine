@@ -11,5 +11,10 @@
       = javascript_include_tag 'jquery.min', :page_engine
       = csrf_meta_tag
   %body    
+  
+    %ul#nav
+      %li= link_to('Pages', admin_pages_path)
+      %li= link_to('Page snippets', admin_page_snippets_path)
+      
     #content
       = yield

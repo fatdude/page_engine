@@ -115,8 +115,6 @@ module PagesHelper
   
     page_snippet = PageSnippet.find_by_name(name.to_s)
     
-#    text = page_snippet ? page_snippet : default_options['default_text']
-    
     if default_options['tag']
       content_tag default_options['tag'], :class => default_options['class'], :id => default_options['id'] do 
         page_snippet ? page_snippet : default_options['default_text']
