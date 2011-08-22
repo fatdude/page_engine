@@ -185,7 +185,14 @@ module PagesHelper
 
     current_user = nil unless defined?(current_user)
 
-    root_page = Page.published_or_hidden.viewable_by(current_user).find_by_permalink(permalink.to_s)
+    root_page = Page.published_or_hidden.viewable_by(current_user)
+    
+    if permalink
+      root_page = root_page.find_by_permalink(permalink.to_s)
+    else
+      root_page = root_page.first
+    end
+    
     return "<p><em>Error:</em> Root page not found</p>".html_safe unless root_page
 
     grouped_pages = root_page.self_and_descendants.viewable_by(current_user).shown_in_menu.published.group_by(&:parent_id)
