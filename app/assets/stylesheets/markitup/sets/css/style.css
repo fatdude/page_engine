@@ -5,68 +5,65 @@
 // CSS Set by Kevin Papst - http://www.kevinpapst.de/
 // ------------------------------------------------------------------*/
 .css.markItUp .class a {
-	background-image:url(/assets/markitup/sets/css/tag.png);
+	background-image:url(/assets/markitup/icons/tag.png);
 }
 .css.markItUp .bold a {
-	background-image:url(/assets/markitup/sets/css/bold.png);
+	background-image:url(/assets/markitup/icons/bold.png);
 }
 .css.markItUp .italic a {
-	background-image:url(/assets/markitup/sets/css/italic.png);
+	background-image:url(/assets/markitup/icons/italic.png);
 }
 .css.markItUp .stroke a {
-	background-image:url(/assets/markitup/sets/css/stroke.png);
+	background-image:url(/assets/markitup/icons/stroke.png);
 }
 .css.markItUp .lowercase a {
-	background-image:url(/assets/markitup/sets/css/text_lowercase.png); 
+	background-image:url(/assets/markitup/icons/text_lowercase.png); 
 }
 .css.markItUp .uppercase a {
-	background-image:url(/assets/markitup/sets/css/text_uppercase.png); 
+	background-image:url(/assets/markitup/icons/text_uppercase.png); 
 }
-
 .css.markItUp .alignments a {
-	background-image:url(/assets/markitup/sets/css/text_align_left.png); 
+	background-image:url(/assets/markitup/icons/text_align_left.png); 
 }
-	.css.markItUp .alignments .left a {
-		background-image:url(/assets/markitup/sets/css/text_align_left.png); 
-	}
-	.css.markItUp .alignments .center a {
-		background-image:url(/assets/markitup/sets/css/text_align_center.png); 
-	}
-	.css.markItUp .alignments .right a {
-		background-image:url(/assets/markitup/sets/css/text_align_center.png); 
-	}
-	.css.markItUp .alignments .justify a {
-		background-image:url(/assets/markitup/sets/css/text_align_justify.png); 
-	}
-
+.css.markItUp .alignments .left a {
+	background-image:url(/assets/markitup/icons/text_align_left.png); 
+}
+.css.markItUp .alignments .center a {
+	background-image:url(/assets/markitup/icons/text_align_center.png); 
+}
+.css.markItUp .alignments .right a {
+	background-image:url(/assets/markitup/icons/text_align_center.png); 
+}
+.css.markItUp .alignments .justify a {
+	background-image:url(/assets/markitup/icons/text_align_justify.png); 
+}
 .css.markItUp .indent a {
-	background-image:url(/assets/markitup/sets/css/text_indent.png); 
+	background-image:url(/assets/markitup/icons/text_indent.png); 
 }
 .css.markItUp .letterspacing a {
-	background-image:url(/assets/markitup/sets/css/text_letterspacing.png); 
+	background-image:url(/assets/markitup/icons/text_letterspacing.png); 
 }
 .css.markItUp .lineheight a {
-	background-image:url(/assets/markitup/sets/css/text_linespacing.png); 
+	background-image:url(/assets/markitup/icons/text_linespacing.png); 
 }
-
 .css.markItUp .padding a {
-	background-image:url(/assets/markitup/sets/css/text_padding_left.png); 
+	background-image:url(/assets/markitup/icons/text_padding_left.png); 
 }
-	.css.markItUp .padding .left a {
-		background-image:url(/assets/markitup/sets/css/text_padding_left.png);  
-	}
-	.css.markItUp .padding .top a {
-		background-image:url(/assets/markitup/sets/css/text_padding_top.png);  
-	}
-	.css.markItUp .padding .right a {
-		background-image:url(/assets/markitup/sets/css/text_padding_right.png);  
-	}
-	.css.markItUp .padding .bottom a {
-		background-image:url(/assets/markitup/sets/css/text_padding_bottom.png); 
-	}
+.css.markItUp .padding .left a {
+	background-image:url(/assets/markitup/icons/text_padding_left.png);  
+}
+.css.markItUp .padding .top a {
+	background-image:url(/assets/markitup/icons/text_padding_top.png);  
+}
+.css.markItUp .padding .right a {
+	background-image:url(/assets/markitup/icons/text_padding_right.png);  
+}
+.css.markItUp .padding .bottom a {
+	background-image:url(/assets/markitup/icons/text_padding_bottom.png); 
+}
 .css.markItUp .background a {
-	background-image:url(/assets/markitup/sets/css/picture.png); 
+	background-image:url(/assets/markitup/icons/picture.png); 
 }
 .css.markItUp .css a {
-	background-image:url(/assets/markitup/sets/css/css.png); 
+	background-image:url(/assets/markitup/icons/css.png); 
 }
