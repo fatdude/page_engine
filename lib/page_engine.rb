@@ -38,4 +38,4 @@ module PageEngine
 end
 
 ActionView::Helpers::AssetTagHelper.register_javascript_expansion :page_engine => ["jquery-ui-1.8.15.custom.min", "jquery.ui.nestedSortable", "jquery.markitup", "markitup/sets/html/set", "markitup/sets/textile/set", "markitup/sets/markdown/set", "markitup/sets/css/set", "markitup/sets/javascript/set", "page_engine"]
-ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion :page_engine => [ "markitup/skins/markitup/style", "markitup/sets/html/style", "markitup/sets/textile/style", "markitup/sets/markdown/style", "markitup/sets/css/style", "markitup/sets/javascript/style", "page_engine"]
+ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion :page_engine => [ "markitup/skins/simple/style", "markitup/sets/html/style", "markitup/sets/textile/style", "markitup/sets/markdown/style", "markitup/sets/css/style", "markitup/sets/javascript/style", "page_engine"]
