@@ -1,0 +1,20 @@
+%h2 Page Snippets
+
+%p
+  = link_to('New page snippet', new_admin_page_snippet_path, :class => 'icon_left add')
+
+%table#page_snippets
+  %thead
+    %tr
+      %th Name
+      %th
+      %th
+  %tbody
+    - @page_snippets.each do |page_snippet|
+      %tr{ :id => "page_snippet_#{page_snippet.id}", :class => cycle('odd', 'even')}
+        %td.odd
+          = page_snippet.name
+        %td.even.has_icon
+          = link_to('Edit', edit_admin_page_snippet_path(page_snippet), :class => 'icon edit')
+        %td.odd.has_icon
+          = link_to('Destroy', [:admin, page_snippet], :confirm => 'Are you sure?', :method => :delete, :class => 'icon delete')

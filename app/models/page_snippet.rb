@@ -3,22 +3,28 @@ class PageSnippet < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   
   # Relationships
-  has_assets
+  if PageEngine.class_exists?('Asset')
+    has_assets
+  end
 
   def to_s
-    case filter
-      when "none"
-        content.html_safe
-      when "textile"
-        textilize(content).html_safe
-      when "erb"
-        require "erb"
-        eval(ERB.new(content).src).html_safe
-      when "erb+textile"
-        require "erb"
-        textilize eval(ERB.new(content).src).html_safe
-      when "html"
-        content.html_safe
+    if content
+      case filter
+        when "none"
+          content.html_safe
+        when "textile"
+          RedCloth.new(content).to_html.html_safe
+        when "markdown"
+          BlueCloth.new(content).to_html.html_safe
+        when "erb"
+          require "erb"
+          eval(ERB.new(content).src).html_safe
+        when "erb+textile"
+          require "erb"
+          textilize eval(ERB.new(content).src).html_safe
+        when "html"
+          content.html_safe
+      end      
     end
   end
 end

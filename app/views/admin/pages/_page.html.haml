@@ -6,10 +6,10 @@
     = link_to page.title, edit_admin_page_path(page)
     
     %span.controls
-      = link_to 'Add child', new_admin_page_page_path(page), :class => 'icon add', :title => 'Add a child page'
-      = link_to 'Edit', edit_admin_page_path(page), :class => 'icon edit', :title => 'Edit this page'
-      = link_to 'Destroy', [:admin, page], :confirm => 'Are you sure?', :method => :delete, :class => 'icon delete', :title => 'Delete this page (children move to parent)', :remote => true
-      = link_to 'Duplicate', duplicate_admin_page_path(page), :class => 'icon duplicate', :title => 'Duplicate this page', :remote => true
+      = link_to('Add child', new_admin_page_page_path(page), :class => 'icon add', :title => 'Add a child page')
+      = link_to('Edit', edit_admin_page_path(page), :class => 'icon edit', :title => 'Edit this page')
+      = link_to('Destroy', [:admin, page], :confirm => 'Are you sure?', :method => :delete, :class => 'icon delete', :title => 'Delete this page (children move to parent)', :remote => true)
+      = link_to('Duplicate', duplicate_admin_page_path(page), :class => 'icon duplicate', :title => 'Duplicate this page', :remote => true)
       
     %span.permalink
       = page.permalink

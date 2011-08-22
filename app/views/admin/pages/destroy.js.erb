@@ -1,3 +1,1 @@
-$('ul#pages').replaceWith('<%= escape_javascript(render 'page_list') %>');
-page_sort();
-
+$('ol#page_engine').html('<%= escape_javascript(render(@pages[nil])) if @pages[nil] %>').nestedSortable('refresh');

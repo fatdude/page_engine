@@ -1,18 +1,4 @@
-module PagesHelper
-  
-  # Helper for layout files so that all relevant javascript files are loaded
-  def cmser_admin_js
-    ['admin/cms', 'ckeditor/ckeditor', 'ckeditor/adapters/jquery.js', 'textile-editor', 'textile-editor-config']
-  end
-
-  # Helper for layout files so that all relevant css files are loaded
-  def cmser_admin_css
-    ['admin/cms', 'textile-editor']
-  end
-  
-  def rails_version
-    Rails.version.split('.')[1] == '0' ? '3.0' : '3.1'
-  end
+module PagesHelper  
 
   # Set the page title 
   def page_title(default_text)
@@ -23,24 +9,52 @@ module PagesHelper
     end
   end
   
-  def page_js
-    if @page && !@page.js.blank?
-      javascript_tag do 
-        @page.js
+  def page_js(options={})
+    default_options = {
+      'with_tags' => true
+    }.merge(options.stringify_keys)
+    
+    if default_options['with_tags']
+      if @page && !@page.js.blank?
+        javascript_tag do 
+          @page.js
+        end
+      end
+    else
+      @page.js
+    end
+  end
+  
+  def page_css(options={})
+    default_options = {
+      'with_tags' => true
+    }.merge(options.stringify_keys)
+  
+    if default_options['with_tags']
+      if @page && !@page.css.blank?
+        content_tag :style do
+          @page.css
+        end
+      end
+    else
+      @page.css
+    end
+  end
+  
+  def page_meta_keywords
+    if @page && !@page.meta_keywords.blank?
+      content_tag :meta, :name => 'keywords' do 
+        @page.meta_keywords
       end
     end
   end
   
-  def page_css
-    "<style>\n#{@page.css}\n</style>".html_safe if @page && !@page.css.blank?
-  end
-  
-  def page_meta_keywords
-    "<meta name=\"keywords\" content=\"#{@page.meta_keywords}\" />".html_safe if @page && !@page.meta_keywords.blank?
-  end
-  
   def page_meta_description
-    "<meta name=\"description\" content=\"#{@page.meta_description}\" />".html_safe if @page && !@page.meta_description.blank?
+    if @page && !@page.meta_description.blank?
+      content_tag :meta, :name => 'description' do 
+        @page.meta_description
+      end
+    end
   end
   
   # Usage:
@@ -68,7 +82,7 @@ module PagesHelper
       end 
     end
     
-    h(page.title)
+    page.title
   end
   
   # Add extra fields for an object in a form, in this case page parts
@@ -91,9 +105,25 @@ module PagesHelper
     default_options['page'].page_parts.detect { |p| p.title == default_options['part'].to_s } if default_options['page']
   end
   
-  def page_snippet(name, default="Page snippet not found")
+  def page_snippet(name, options={})
+    default_options = {
+      'default_text' => 'Page snippet not found',
+      'tag' => nil,
+      'class' => ['page_snippet'],
+      'id' => nil
+    }.merge(options.stringify_keys)
+  
     page_snippet = PageSnippet.find_by_name(name.to_s)
-    page_snippet ? page_snippet : default
+    
+#    text = page_snippet ? page_snippet : default_options['default_text']
+    
+    if default_options['tag']
+      content_tag default_options['tag'], :class => default_options['class'], :id => default_options['id'] do 
+        page_snippet ? page_snippet : default_options['default_text']
+      end
+    else
+      page_snippet ? page_snippet : default_options['default_text']
+    end
   end
 
   def link_to_page(page, options={})

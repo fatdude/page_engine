@@ -50,7 +50,6 @@ class Admin::PagesController < ApplicationController
   # POST /pages
   # POST /pages.xml
   def create
-    debugger
     @parent = Page.find_by_permalink(params[:page_id])
     @page = Page.new(params[:page])
 
@@ -99,14 +98,18 @@ class Admin::PagesController < ApplicationController
   # DELETE /pages/1
   # DELETE /pages/1.xml
   def destroy
-    @page = Page.find_by_permalink(params[:id])
+    @page = Page.find_by_permalink(params[:id])    
     @page.move_children_to_parent
     @page.destroy
 
     respond_to do |format|
-      format.html { redirect_to(admin_pages_path) }
+      format.html do
+        redirect_to(admin_pages_path)
+      end
       format.xml  { head :ok }
-      format.js { @pages = Page.all.group_by(&:parent_id) }
+      format.js do
+        @pages = Page.all.group_by(&:parent_id)
+      end
     end
   end
 
@@ -121,23 +124,17 @@ class Admin::PagesController < ApplicationController
       @page.rgt = value[:right].to_i - 1
       @page.save
     end
-
-    @pages = Page.all.group_by(&:parent_id)
-
-    respond_to do |format|
-      format.js
-    end
+    
+    render :nothing => true
   end
 
   def duplicate
     @original_page = Page.find_by_permalink params[:id], :include => [:page_parts]
     @page = @original_page.duplicate
     @pages = {}
-    
-    flash[:notice] = 'Page was successfully duplicated'
 
     respond_to do |format|
-      format.html { redirect_to admin_pages_path }
+      format.html { redirect_to admin_pages_path, :notice => 'Page was successfully duplicated' }
       format.js
     end
   end

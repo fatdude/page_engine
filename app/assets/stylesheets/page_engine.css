@@ -1,5 +1,4 @@
 /*
- * require markitup/style
  *= require markitup/skins/markitup/style
  *= require markitup/sets/html/style
  *= require markitup/sets/textile/style
@@ -44,6 +43,15 @@
   background-image: url(/assets/page_engine/delete.png);
 }
 
+.icon.edit {
+  background-image: url(/assets/page_engine/pencil.png);
+}
+
+.icon.show {
+  background-image: url(/assets/page_engine/zoom.png);
+}
+
+
 .icon.waiting {
   background-image: url(/assets/page_engine/waiting.gif);
 }
@@ -68,7 +76,7 @@ ol#page_engine li.page {
 }
 
 ol#page_engine li.placeholder {
-  background: #efefef;
+  border: dashed 1px #333;
 }
 
 ol#page_engine * {
