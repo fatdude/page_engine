@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       resources :pages
       resources :page_parts
     end
+    
+    root :to => "pages#index"
   end
   match ":permalink", :to => "pages#show"
 end
