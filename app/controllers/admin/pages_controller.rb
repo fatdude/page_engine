@@ -3,7 +3,7 @@ class Admin::PagesController < ApplicationController
   layout 'admin'
   
   def index
-    @pages = Page.all.group_by(&:parent_id)
+    @pages = Page.order(:lft).all.group_by(&:parent_id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -108,7 +108,7 @@ class Admin::PagesController < ApplicationController
       end
       format.xml  { head :ok }
       format.js do
-        @pages = Page.all.group_by(&:parent_id)
+        @pages = Page.order(:lft).all.group_by(&:parent_id)
       end
     end
   end

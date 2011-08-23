@@ -1,5 +1,4 @@
 class Page < ActiveRecord::Base
-  default_scope order('lft asc')
   acts_as_nested_set
 
   # Relationships
@@ -46,10 +45,8 @@ class Page < ActiveRecord::Base
 
   attr_accessor :no_publish_window, :controller_action  
 
-  # Public instance methods
-
   def no_publish_window
-    publish_window_set?
+    no_publish_window_set?
   end
 
   def controller_action
@@ -58,12 +55,12 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def publish_window_set?
+  def no_publish_window_set?
     self.publish_from.nil? && self.publish_to.nil?
   end
 
   def published?
-    if self.publish_window_set?
+    if self.no_publish_window_set?
       self.status == "Published"
     else
       self.publish_from < DateTime.now && self.publish_to > DateTime.now && self.status == "Published"
