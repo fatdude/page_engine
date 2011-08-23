@@ -51,15 +51,24 @@ Renders the page content using the filter specified (textile, markdown etc). Def
 Generates a set of links that represent the current page and it's ancestors
 
 	page_title
+	
 
 	page_js
+	
 
 	page_css
+	
 
 	page_meta_keywords
+	
 
 	page_meta_description
+	
 
 	page_snippet snippet name
 
 Renders the named snippet
+
+## Rails engine
+
+Since this was built using the rails 3.1 plugin generator you can test the gem using the dummy application which can be found under spec/dummy.
