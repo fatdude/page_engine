@@ -10,11 +10,25 @@ For rails 3 and above simply add the following to your gemfile:
 
 Then bundle install.
 
+To make use of the assets in the gem add the following to your stylesheets manifest
+
+   *= require page_engine
+   
+and after jquery in your javascripts manifest 
+  
+   //= require page_engine
+
 Since rails 3.0 doesn't support the asset pipeline out of the box you will also need to install the gems assets (images, css and javascript) using:
 
 	rails g page_engine
 
 If you've managed to get the asset pipeline working in rails 3.0 then you can skip the above step... and feel free to give yourself a biscuit.
+
+To install the migrations run
+
+  rake page_engine_engine:install:migrations
+  
+
 
 ## Usage
 
