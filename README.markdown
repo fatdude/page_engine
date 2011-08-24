@@ -14,7 +14,7 @@ Since rails 3.0 doesn't support the asset pipeline out of the box you will also 
 
 	rails g page_engine
 
-If you've managed to get the asset pipeline working in rails 3.0 then you can skip the above step... and feel free to give yourself a cookie.
+If you've managed to get the asset pipeline working in rails 3.0 then you can skip the above step... and feel free to give yourself a biscuit.
 
 ## Usage
 

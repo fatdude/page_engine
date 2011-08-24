@@ -2,9 +2,9 @@
 # project in your rails apps through git.
 Gem::Specification.new do |s|
   s.name = "page_engine"
-  s.summary = "Insert PageEngine summary."
-  s.description = "Insert PageEngine description."
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.summary = "Extends a rails application with pages"
+  s.description = "Extends a rails application with pages, allowing the generation of navigation, breadcrumbs etc. Content can be currentl written in markdown, textile or plain html."
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.markdown"]
   s.test_files = Dir["test/**/*"]
   s.version = "0.0.1"
   
