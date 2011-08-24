@@ -1,4 +1,5 @@
 /*
+ *= require jquery-ui
  *= require markitup/skins/simple/style
  *= require markitup/sets/html/style
  *= require markitup/sets/textile/style
@@ -6,6 +7,10 @@
  *= require markitup/sets/css/style
  *= require markitup/sets/javascript/style
 */
+
+body {
+  background: red;
+}
 
 .js .hidden {
   display: none;
