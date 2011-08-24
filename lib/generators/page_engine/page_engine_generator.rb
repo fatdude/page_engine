@@ -42,6 +42,7 @@ class PageEngineGenerator < Rails::Generators::Base
         gsub_file "public/stylesheets/markitup/skins/#{area}/style.css", /\/assets\//, '/images/'
       end
       
+      gsub_file "public/stylesheets/jquery-ui.css", /\/assets\//, '/images/'
       gsub_file "public/stylesheets/page_engine.css", /\/assets\//, '/images/'
     end
     
