@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.homepage = "http://www.fatdude.net"
   s.summary = "Extends a rails application with pages"
   s.description = "Extends a rails application with pages, allowing the generation of navigation, breadcrumbs etc. Content can be currentl written in markdown, textile or plain html."
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.markdown"]
+  s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.markdown"]
   s.test_files = Dir["spec/**/*"]
-  s.version = "0.0.2"
+  s.version = "0.0.3"
   
   s.add_dependency 'simple_form'
   s.add_dependency 'RedCloth'
