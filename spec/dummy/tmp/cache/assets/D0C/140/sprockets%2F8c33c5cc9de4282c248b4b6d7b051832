@@ -1,16 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1313938032.265625:@value{I"
-class:EFI"StaticAsset;
-FI"id;
-F"%6655b3a4a43e8b3018ddd6cddf720d5fI"logical_path;
-FI"#markitup/sets/html/preview.png;
-FI"pathname;
-FI"\/home/mark/dev/personal/page_engine/vendor/assets/images/markitup/sets/html/preview.png;
-FI"content_type;
-FI"image/png;
-FI"
-mtime;
-F"2011-08-21 15:07:22 +0100I"length;
-FI"537;
-FI"digest;
-F"%d7d63ae417c1454715524e4b8e55a968I"_version;
-F"%2ae678b00484ff298131f3f2a9ac84b1

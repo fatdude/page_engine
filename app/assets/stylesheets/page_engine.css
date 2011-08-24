@@ -8,10 +8,6 @@
  *= require markitup/sets/javascript/style
 */
 
-body {
-  background: red;
-}
-
 .js .hidden {
   display: none;
 }
