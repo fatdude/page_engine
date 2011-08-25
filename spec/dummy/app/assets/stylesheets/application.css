@@ -241,3 +241,7 @@ form.simple_form .input.field_with_errors input, form.simple_form .input.field_w
 form.simple_form .actions {
   text-align: right;
 }
+
+form.simple_form iframe.markItUpPreviewFrame {
+  width: 814px;
+}
