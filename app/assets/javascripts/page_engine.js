@@ -185,5 +185,6 @@ add_fields = function(link, association, content){
   } else {
     alert('You need to specify a name');
   }
+  return false;
 }
 

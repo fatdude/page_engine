@@ -6,3 +6,238 @@
  *= require page_engine
  *= require_tree . 
 */
+
+form.simple_form {
+  width: 836px;
+}
+
+form.simple_form label {
+  font-weight: bold;
+}
+
+form.simple_form fieldset {
+  padding: 1.4em;
+  margin: 0 0 1.5em 0;
+}
+
+form.simple_form legend {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+form.simple_form input.text, form.simple_form input.title, form.simple_form input[type=email], form.simple_form input[type=text], form.simple_form input.numeric, form.simple_form input.tel, form.simple_form input.url, form.simple_form input[type=password] {
+  margin: 0.5em 0;
+  background-color: white;
+  padding: 5px;
+}
+
+form.simple_form input.title {
+  font-size: 1.5em;
+}
+
+form.simple_form textarea {
+  margin: 0.5em 0;
+  padding: 5px;
+}
+
+form.simple_form select {
+  margin: 0.5em 0;
+}
+
+form.simple_form fieldset {
+  border: 1px solid #cccccc;
+}
+
+form.simple_form input.text, form.simple_form input.title, form.simple_form input[type=email], form.simple_form input[type=text], form.simple_form input.numeric, form.simple_form input.tel, form.simple_form input.url, form.simple_form input[type=password],
+form.simple_form textarea {
+  background-color: #fff;
+  border: 1px solid #bbbbbb;
+}
+
+form.simple_form input.text:focus, form.simple_form input.title:focus, form.simple_form input[type=email]:focus, form.simple_form input[type=text]:focus, form.simple_form input.numeric:focus, form.simple_form input.tel:focus, form.simple_form input.url:focus, form.simple_form input[type=password]:focus,
+form.simple_form textarea:focus {
+  border-color: #666666;
+}
+
+form.simple_form select {
+  background-color: #fff;
+  border-width: 1px;
+  border-style: solid;
+}
+
+form.simple_form input.text, form.simple_form input.title, form.simple_form input[type=email], form.simple_form input[type=text], form.simple_form input.numeric, form.simple_form input.tel, form.simple_form input.url, form.simple_form input[type=password] {
+  width: 300px;
+}
+
+form.simple_form textarea {
+  width: 390px;
+  height: 250px;
+}
+
+form.simple_form input.text, form.simple_form input.title, form.simple_form input[type=email], form.simple_form input[type=text], form.simple_form input.numeric, form.simple_form input.tel, form.simple_form input.url, form.simple_form input[type=password] {
+  width: 824px;
+}
+
+form.simple_form textarea {
+  width: 824px;
+  height: 250px;
+}
+
+form.simple_form .page_parts input.text, form.simple_form .page_parts input.title, form.simple_form .page_parts input[type=email], form.simple_form .page_parts input[type=text], form.simple_form .page_parts input.numeric, form.simple_form .page_parts input.tel, form.simple_form .page_parts input.url, form.simple_form .page_parts input[type=password] {
+  width: 804px;
+}
+
+form.simple_form .page_parts textarea {
+  width: 804px;
+}
+
+form.simple_form #new_page_part_name {
+  width: 200px;
+}
+
+form.simple_form label {
+  font-weight: normal;
+}
+
+form.simple_form label abbr {
+  color: red;
+}
+
+form.simple_form input.numeric, form.simple_form input.tel, form.simple_form input.url, form.simple_form input.string, form.simple_form input.password {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+}
+
+form.simple_form input.boolean {
+  vertical-align: middle;
+  margin-left: 0;
+}
+
+form.simple_form input.check_boxes {
+  vertical-align: middle;
+}
+
+form.simple_form .input {
+  clear: both;
+}
+
+form.simple_form .input label {
+  display: block;
+}
+
+form.simple_form .input select {
+  border: 1px solid #BBBBBB;
+  padding: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+}
+
+form.simple_form .input .hint {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  width: 50%;
+  margin-bottom: 0.5em;
+  font-style: italic;
+}
+
+form.simple_form .input .hint {
+  *display: inline;
+}
+
+form.simple_form .input .error {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  text-align: right;
+  width: 50%;
+  color: red;
+  font-weight: bold;
+  float: right;
+}
+
+form.simple_form .input .error {
+  *display: inline;
+}
+
+form.simple_form .input.select label, form.simple_form .input.date label, form.simple_form .input.datetime label {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  padding-right: 5px;
+}
+
+form.simple_form .input.select label, form.simple_form .input.date label, form.simple_form .input.datetime label {
+  *display: inline;
+}
+
+form.simple_form .input.select .hint, form.simple_form .input.date .hint, form.simple_form .input.datetime .hint {
+  display: block;
+}
+
+form.simple_form .input.boolean {
+  padding-bottom: .5em;
+}
+
+form.simple_form .input.boolean label {
+  vertical-align: middle;
+  display: inline;
+}
+
+form.simple_form .input.boolean .hint {
+  display: block;
+  margin-top: .5em;
+}
+
+form.simple_form .input.check_boxes {
+  margin-bottom: 0.5em;
+}
+
+form.simple_form .input.check_boxes label.collection_check_boxes {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  vertical-align: middle;
+}
+
+form.simple_form .input.check_boxes label.collection_check_boxes {
+  *display: inline;
+}
+
+form.simple_form .input.check_boxes .hint {
+  display: block;
+  margin-top: .5em;
+}
+
+form.simple_form .input.file {
+  margin-bottom: .5em;
+}
+
+form.simple_form .input.file .hint {
+  display: block;
+  margin-top: .5em;
+}
+
+form.simple_form .input.field_with_errors input, form.simple_form .input.field_with_errors textarea {
+  border-color: error;
+}
+
+form.simple_form .actions {
+  text-align: right;
+}
