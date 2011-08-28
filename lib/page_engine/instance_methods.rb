@@ -72,7 +72,7 @@ module PageEngine
       def get_breadcrumbs
         current_user = nil unless defined?(current_user)
         if @page
-          @breadcrumbs = @page.ancestors.published.viewable_by(current_user).all
+          @breadcrumbs = @page.ancestors.for_nav.published.viewable_by(current_user).all
         else
           @breadcrumbs = []
         end

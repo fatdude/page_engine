@@ -42,6 +42,7 @@ class Page < ActiveRecord::Base
   scope :shown_in_sitemap, where({ :display_in_sitemap => true })
   scope :shown_in_menu, where({ :display_in_menu => true })
   scope :just_controller_and_actions, select("controller || '|' || action as taken").group('taken')
+  scope :for_nav, select([:id, :title, :parent_id, :menu_css_class, :no_link, :url, :controller, :action, :permalink])
 
   attr_accessor :no_publish_window, :controller_action  
 

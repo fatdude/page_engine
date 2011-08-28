@@ -195,7 +195,7 @@ module PagesHelper
     
     return "<p><em>Error:</em> Root page not found</p>".html_safe unless root_page
 
-    grouped_pages = root_page.self_and_descendants.viewable_by(current_user).shown_in_menu.published.group_by(&:parent_id)
+    grouped_pages = root_page.self_and_descendants.viewable_by(current_user).shown_in_menu.published.for_nav.group_by(&:parent_id)
 
     render 'pages/navigation', :options => default_options, :root_page => root_page, :grouped_pages => grouped_pages, :level => 1
   end
