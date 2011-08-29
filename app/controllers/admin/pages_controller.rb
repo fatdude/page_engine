@@ -29,7 +29,6 @@ class Admin::PagesController < ApplicationController
     PageEngine.page_parts.collect { |page_part| @page.page_parts.build(:title => page_part) }
     @parent = Page.find_by_permalink(params[:page_id])
     @roles = PageEngine.class_exists?('Role') ? Role.all : []
-    @page_part_index = 0
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,7 +43,6 @@ class Admin::PagesController < ApplicationController
     @page = @page.first
     @parent = @page.parent
     @roles = PageEngine.class_exists?('Role') ? Role.all : []
-    @page_part_index = 0
   end
 
   # POST /pages

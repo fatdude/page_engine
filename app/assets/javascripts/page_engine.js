@@ -58,6 +58,14 @@ $(document).ready(function(){
     check_filter($(this));
   });
   
+  $('textarea[data-filter=css]').each(function(){
+    add_css($(this));
+  });  
+  
+  $('textarea[data-filter=javascript]').each(function(){
+    add_javascript($(this));
+  });  
+  
   $('#page_no_publish_window').change(function(){
     $('.edit_page .field.publish_from').toggle('slide');
     $('.edit_page .field.publish_to').toggle('slide');

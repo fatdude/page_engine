@@ -10,11 +10,11 @@ module PagesHelper
   end
   
   def page_js(options={})
-    default_options = {
-      'with_tags' => true
-    }.merge(options.stringify_keys)
+    options = {
+      :with_tags => true
+    }.with_indifferent_access.merge(options)
     
-    if default_options['with_tags']
+    if options[:with_tags]
       if @page && !@page.js.blank?
         javascript_tag do 
           @page.js
@@ -26,11 +26,11 @@ module PagesHelper
   end
   
   def page_css(options={})
-    default_options = {
-      'with_tags' => true
-    }.merge(options.stringify_keys)
+    options = {
+      :with_tags => true
+    }.with_indifferent_access.merge(options)
   
-    if default_options['with_tags']
+    if options[:with_tags]
       if @page && !@page.css.blank?
         content_tag :style do
           @page.css
@@ -97,30 +97,30 @@ module PagesHelper
   
   # Return the specified page part content
   def page_content(options={})
-    default_options = {
-      'page' => @page,
-      'part' => 'body'
-    }.merge!(options.stringify_keys)
+    options = {
+      :page => @page,
+      :part => 'body'
+    }.with_indifferent_access.merge(options)
     
-    default_options['page'].page_parts.detect { |p| p.title == default_options['part'].to_s } if default_options['page']
+    options[:page].page_parts.detect { |p| p.title == options[:part].to_s } if options[:page]
   end
   
   def page_snippet(name, options={})
-    default_options = {
-      'default_text' => 'Page snippet not found',
-      'tag' => nil,
-      'class' => ['page_snippet'],
-      'id' => nil
-    }.merge(options.stringify_keys)
+    options = {
+      :default_text => 'Page snippet not found',
+      :tag => nil,
+      :class => ['page_snippet'],
+      :id => nil
+    }.with_indifferent_access.merge(options)
   
     page_snippet = PageSnippet.find_by_name(name.to_s)
     
-    if default_options['tag']
-      content_tag default_options['tag'], :class => default_options['class'], :id => default_options['id'] do 
-        page_snippet ? page_snippet : default_options['default_text']
+    if options[:tag]
+      content_tag options[:tag], :class => options[:class], :id => options[:id] do 
+        page_snippet ? page_snippet : options[:default_text]
       end
     else
-      page_snippet ? page_snippet : default_options['default_text']
+      page_snippet ? page_snippet : options[:default_text]
     end
   end
 
@@ -142,28 +142,28 @@ module PagesHelper
   # * seperator: The text or character that will seperate the breadcrumbs. Defaults to " &raquo; "
   # * format: choices are "ul" or "inline". "ul" displays the breadcrumb links in an unordered list whilst "inline" displays them inline in a containing div. Defaults to "ul"
   def breadcrumbs(options={})
-    default_options = {
-      'breadcrumbs' => @breadcrumbs,
-      'page' => @page,
-      'seperator' => ' &raquo; ',
-      'format' => 'ul'
-    }.merge!(options.stringify_keys)
+    options = {
+      :breadcrumbs => @breadcrumbs,
+      :page => @page,
+      :seperator => ' &raquo; ',
+      :format => :ul
+    }.with_indifferent_access.merge(options)
 
-    case default_options['format'].to_s
-      when 'inline'
-        content_tag :div, :class => 'breadcrumbs' do
-          links = default_options['breadcrumbs'].collect.with_index { |breadcrumb, i| link_to_page(breadcrumb, :class => "crumb_#{i}") + default_options['seperator'].html_safe }.join().html_safe
-          links += content_tag(:span, replace_title_for(default_options['page']), :class => 'current_page') if default_options['page']
+    case options[:format]
+      when :inline
+        content_tag :div, :class => :breadcrumbs do
+          links = options[:breadcrumbs].collect.with_index { |breadcrumb, i| link_to_page(breadcrumb, :class => "crumb_#{i}") + options[:seperator].html_safe }.join().html_safe
+          links += content_tag(:span, replace_title_for(options[:page]), :class => 'current_page') if options[:page]
         end
         
-      when 'ul'
-        content_tag :ul, :class => 'breadcrumbs' do
-          links = default_options['breadcrumbs'].collect.with_index { |breadcrumb, i| content_tag(:li, link_to_page(breadcrumb, :class => "crumb_#{i}")) }.join().html_safe
-          links += content_tag(:li, replace_title_for(default_options['page']), :class => 'current_page') if default_options['page']
+      when :ul
+        content_tag :ul, :class => :breadcrumbs do
+          links = options[:breadcrumbs].collect.with_index { |breadcrumb, i| content_tag(:li, link_to_page(breadcrumb, :class => "crumb_#{i}")) }.join().html_safe
+          links += content_tag(:li, replace_title_for(options[:page]), :class => 'current_page') if options[:page]
         end
         
       else
-        'Please choose one of \'inline\' or \'ul\' as a format'
+        'Please choose one of :inline or :ul as a format'
     end
   end
 
@@ -175,50 +175,36 @@ module PagesHelper
   # * id: The id of the containing id. Defaults to ""
   # * link_current: Set to true if the current page should have a link. Defaults to false  
   def navigation(options={})
-    default_options = {
-      'root' => nil,
-      'current' => @page,
-      'class' => 'nav', 
-      'id' => '',
-      'include_root' => false,
-      'link_current' => false,
-      'depth' => 2
-    }.merge!(options.stringify_keys)
+    options = {
+      :root => nil,
+      :current => @page,
+      :class => 'nav', 
+      :id => '',
+      :include_root => false,
+      :link_current => false,
+      :depth => 2
+    }.with_indifferent_access.merge(options)
 
     current_user = nil unless defined?(current_user)
     
-    if default_options['root'].is_a?(NilClass)
+    if options[:root].is_a?(NilClass)
       root_page = Page.published_or_hidden.viewable_by(current_user).root_only.first
-    elsif default_options['root'].is_a?(Page)
-      root_page = default_options['root']
-    elsif default_options['root'].is_a?(String)
-      root_page = Page.published_or_hidden.viewable_by(current_user).where('pages.url = :root or pages.permalink = :root', :root => default_options['root']).first
-    elsif default_options['root'].is_a?(Hash)
-      default_options['root'].stringify_keys!
-      root_page = Page.published_or_hidden.viewable_by(current_user).where(:controller => default_options['root']['controller'], :action => default_options['root']['action']).first
+    elsif options[:root].is_a?(Page)
+      root_page = options[:root]
+    elsif options[:root].is_a?(String)
+      root_page = Page.published_or_hidden.viewable_by(current_user).where('pages.url = :root or pages.permalink = :root', :root => options[:root]).first
+    elsif options[:root].is_a?(Hash)
+      options[:root].stringify_keys!
+      root_page = Page.published_or_hidden.viewable_by(current_user).where(:controller => options[:root][:controller], :action => options[:root][:action]).first
     else
       return "<p><em>Error:</em> Root must be a page, a permalink, a url or a hash containing the controller and action, got: #{root.class.to_s}.</p>".html_safe
     end
     
-    return "<p><em>Error:</em> Root page not found: #{default_options['root']}</p>".html_safe unless root_page
+    return "<p><em>Error:</em> Root page not found: #{options[:root]}</p>".html_safe unless root_page
 
     grouped_pages = root_page.self_and_descendants.viewable_by(current_user).shown_in_menu.published.for_nav.group_by(&:parent_id)
 
-    render 'pages/navigation', :options => default_options, :root_page => root_page, :grouped_pages => grouped_pages, :level => 1
-  end
-  
-  def filter_select(target, options={})
-    default_options = {
-      'builder' => nil,
-      'object' => nil,
-      'attribute' => nil  
-    }.merge!(options.stringify_keys)
-    
-    if default_options['builder']
-      default_options['builder'].select(default_options['attribute'], Page.filters, {}, { :class => 'filter', :rel => target })
-    else
-      select_tag(default_options['object'], default_options['attribute'], Page.filters, {}, { :class => 'filter', :rel => target })
-    end
+    render 'pages/navigation', :options => options, :root_page => root_page, :grouped_pages => grouped_pages, :level => 1
   end
 
   private

@@ -113,7 +113,7 @@ class Page < ActiveRecord::Base
     page
   end
 
-  def is_viewable_by? user
+  def is_viewable_by?(user)
     if PageEngine.class_exists?('Role')
       if PageEngine.class_exists?('User') && user
         return true if self.roles.length == 0
@@ -153,7 +153,7 @@ class Page < ActiveRecord::Base
 
   class << self
     
-    def breadcrumbs_for user, url
+    def breadcrumbs_for(user, url)
       root = Page.published.viewable_by(user).find_by_url(url)
       root.nil? ? [] : root.self_and_ancestors
     end
@@ -177,7 +177,7 @@ class Page < ActiveRecord::Base
       end      
     end
 
-    def with_roles roles
+    def with_roles(roles)
       if Extras.class_exists?('Role')
         includes(:roles).where([ "roles.id IN (?)", roles.join(',') ])
       else
@@ -185,7 +185,7 @@ class Page < ActiveRecord::Base
       end
     end
 
-    def with_url request, params
+    def with_url(request, params)
       url = request.fullpath
       url.gsub!(/\?.*/, '') # Strip away anything after the ? as it's not needed
 
