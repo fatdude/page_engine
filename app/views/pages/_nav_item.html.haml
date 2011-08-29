@@ -1,5 +1,5 @@
 %li{ :class => page_menu_class(page) }
-  - if page.no_link || (page == options[:current] && !options[:link_current])
+  - if page.no_link || (page == options['current'] && !options['link_current'])
     %span= replace_title_for(page)
   - else 
     = link_to_page(page)
