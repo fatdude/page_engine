@@ -4,14 +4,18 @@ require 'page_engine/exceptions'
 
 class << ActionController::Base
   def page_engine(options = {})
+#    # Check options
+#    raise PageEngine::PageEngineException.new("Options for page_engine must be in a hash.") unless options.is_a? Hash
+#    
+#    options = {
+#      :layouts = ['application']
+#    }.merge(options)
     
-    # Check options
-    raise PageEngine::PageEngineException.new("Options for page_engine must be in a hash.") unless options.is_a? Hash
-    options.each do |key, value|
-      unless [:layouts].include?(key)
-        raise PageEngine::PageEngineException.new("Unknown option for page_engine: #{key.inspect} => #{value.inspect}.")
-      end
-    end
+#    options.each do |key, value|
+#      unless [:layouts].include?(key)
+#        raise PageEngine::PageEngineException.new("Unknown option for page_engine: #{key.inspect} => #{value.inspect}.")
+#      end
+#    end
   
     include PageEngine::InstanceMethods
     extend PageEngine::ClassMethods
@@ -19,6 +23,6 @@ class << ActionController::Base
     before_filter :find_page
     layout :get_layout
     
-    Page.layouts = options[:layouts].is_a?(Array) ? options[:layouts] : ['application']
+#    PageEngine.layouts = options[:layouts].is_a?(Array) ? options[:layouts] : ['application']
   end
 end

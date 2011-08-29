@@ -10,6 +10,33 @@ require 'simple_form'
 require 'awesome_nested_set'
 
 module PageEngine
+  
+  # The list of layouts available to the pages
+  mattr_accessor :layouts
+  @@layouts = ['application']
+  
+  # The page parts that are created with a new page
+  mattr_accessor :page_parts
+  @@page_parts = %w{ body left right header footer }
+  
+  # Extra page statuses added to the default values
+  @@statuses = %w{ Draft Published Review Hidden }
+  
+  # List of filters that can be applied
+  mattr_accessor :filters
+  @@filters = %w{ none html textile markdown erb erb+textile }
+  
+  
+  # Module methods
+  
+  def self.statuses=s
+    @@statuses += s if s.is_a?(Array)
+  end  
+  
+  def self.statuses
+    @@statuses
+  end
+  
   def self.class_exists?(class_name)
     klass = Module.const_get(class_name)
     return klass.is_a?(Class)
@@ -35,6 +62,10 @@ module PageEngine
     available.delete('rails/info')
     available
   end
+  
+  def self.setup
+    yield self
+  end  
 end
 
 ActionView::Helpers::AssetTagHelper.register_javascript_expansion :page_engine => ["jquery-ui-1.8.15.custom.min", "jquery.ui.nestedSortable", "jquery.markitup", "markitup/sets/html/set", "markitup/sets/textile/set", "markitup/sets/markdown/set", "markitup/sets/css/set", "markitup/sets/javascript/set", "page_engine"]

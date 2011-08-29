@@ -152,27 +152,14 @@ class Page < ActiveRecord::Base
   end
 
   class << self
-    attr_accessor :layouts
     
     def breadcrumbs_for user, url
       root = Page.published.viewable_by(user).find_by_url(url)
       root.nil? ? [] : root.self_and_ancestors
     end
-
-    def status_values
-      ["Draft", "Published", "Review", "Hidden"]
-    end
     
     def default_layout
-      Page.layouts.first
-    end
-
-    def filters
-      %w{ none html textile markdown erb erb+textile }
-    end
-
-    def page_parts
-      %w{ body left right header footer }
+      PageEngine.layouts.first
     end
 
     # Scopes

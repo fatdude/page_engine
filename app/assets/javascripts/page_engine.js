@@ -50,56 +50,12 @@ $(document).ready(function(){
     return false;
   });
   
-  $('textarea[data-filter=css]').each(function(){
-    add_css($(this));
-  });  
-  
-  $('textarea[data-filter=javascript]').each(function(){
-    add_javascript($(this));
-  });  
-
-  $('textarea[data-filter=textile]').each(function(){
-    add_textile($(this));
-  });  
-  
-  $('textarea[data-filter=markdown]').each(function(){
-    add_markdown($(this));
-  });  
-  
-  $('textarea[data-filter=html]').each(function(){
-    add_html($(this));
-  });  
-  
   $('select.filter').live('change', function(){
-    textarea = $('#' + $(this).attr('rel'));
-    filter = textarea.attr('data-filter');
-    
-    switch ($(this).val()){
-      case 'html':
-        add_html(textarea)
-        textarea.attr('data-filter', 'html');
-        break;
-      case 'textile':
-        add_textile(textarea);
-        textarea.attr('data-filter', 'textile');
-        break;
-      case 'markdown':
-        add_markdown(textarea);
-        textarea.attr('data-filter', 'markdown');
-        break;
-      case 'erb':
-        remove_editors(textarea);
-        textarea.attr('data-filter', 'erb');
-        break;
-      case 'erb+textile':
-        add_textile(textarea)
-        textarea.attr('data-filter', 'erb+textile');
-        break;
-      case 'none':
-        remove_editors(textarea);
-        textarea.attr('data-filter', 'none');
-        break;
-    }
+    check_filter($(this));
+  });
+  
+  $('select.filter').each(function(){
+    check_filter($(this));
   });
   
   $('#page_no_publish_window').change(function(){
@@ -128,6 +84,37 @@ $(document).ready(function(){
     }
   });
 });
+
+check_filter = function(filter){
+  textarea = $('#' + filter.attr('rel'));
+  
+  switch (filter.val()){
+    case 'html':
+      add_html(textarea)
+      textarea.attr('data-filter', 'html');
+      break;
+    case 'textile':
+      add_textile(textarea);
+      textarea.attr('data-filter', 'textile');
+      break;
+    case 'markdown':
+      add_markdown(textarea);
+      textarea.attr('data-filter', 'markdown');
+      break;
+    case 'erb':
+      remove_editors(textarea);
+      textarea.attr('data-filter', 'erb');
+      break;
+    case 'erb+textile':
+      add_textile(textarea)
+      textarea.attr('data-filter', 'erb+textile');
+      break;
+    case 'none':
+      remove_editors(textarea);
+      textarea.attr('data-filter', 'none');
+      break;
+  }
+}
 
 add_html = function(textarea){
   remove_editors(textarea);
