@@ -8,7 +8,7 @@ module PageEngine
       end      
     end
     
-    def find_page permalink=nil
+    def find_page(permalink=nil)
       current_user = nil unless defined?(current_user)
       
       unless params[:controller].split('/').first == "admin"
@@ -23,7 +23,7 @@ module PageEngine
       end
     end
 
-    def page_title_replace models=[]
+    def page_title_replace(models=[])
       models.each do |m|
         key = m.class.to_s.underscore
         @page.title.scan(/\{\{#{key}_([_a-z]*)\}\}/).uniq.flatten.each do |attribute|
@@ -43,7 +43,7 @@ module PageEngine
       end
     end
 
-    def breadcrumb_replace models=[]
+    def breadcrumb_replace(models=[])
       models.each do |m|
         key = m.class.to_s.underscore
         @breadcrumbs.each do |breadcrumb|
