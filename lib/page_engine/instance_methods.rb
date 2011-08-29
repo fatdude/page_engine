@@ -2,9 +2,9 @@ module PageEngine
   module InstanceMethods
     def get_layout
       if @page 
-        @page.layout.blank? ? Page.default_layout : @page.layout
+        @page.layout.blank? ? Page.default_layout.to_s : @page.layout.to_s
       else
-        Page.default_layout
+        Page.default_layout.to_s
       end      
     end
     
