@@ -1,4 +1,4 @@
-!!!
+!!! 5
 %html
   %head
     %title= page_title('Dummy')
@@ -10,13 +10,15 @@
     = page_css
   %body
     #nav
-      = navigation nil, :include_root => true
+      = navigation :include_root => true, :depth => 5
       
     #header
       = breadcrumbs :format => 'inline'
     
     #content
       = yield
+      
+      = navigation :root => @page
       
     = page_js
     

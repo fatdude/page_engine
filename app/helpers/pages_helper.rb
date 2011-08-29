@@ -168,13 +168,15 @@ module PagesHelper
   end
 
   # Options:
+  # * root: The root of the navigation structure
   # * current: The current_page if not @page
   # * depth: The number of levels in the tree to traverse. Defaults to 2
   # * class: The class of the containing ul. Defaults to ""
   # * id: The id of the containing id. Defaults to ""
-  # * link_current: Set to true if the current page should have a link. Defaults to false
-  def navigation(permalink, options={})
+  # * link_current: Set to true if the current page should have a link. Defaults to false  
+  def navigation(options={})
     default_options = {
+      'root' => nil,
       'current' => @page,
       'class' => 'nav', 
       'id' => '',
@@ -184,16 +186,21 @@ module PagesHelper
     }.merge!(options.stringify_keys)
 
     current_user = nil unless defined?(current_user)
-
-    root_page = Page.published_or_hidden.viewable_by(current_user)
     
-    if permalink
-      root_page = root_page.find_by_permalink(permalink.to_s)
+    if default_options['root'].is_a?(NilClass)
+      root_page = Page.published_or_hidden.viewable_by(current_user).root_only.first
+    elsif default_options['root'].is_a?(Page)
+      root_page = default_options['root']
+    elsif default_options['root'].is_a?(String)
+      root_page = Page.published_or_hidden.viewable_by(current_user).where('pages.url = :root or pages.permalink = :root', :root => default_options['root']).first
+    elsif default_options['root'].is_a?(Hash)
+      default_options['root'].stringify_keys!
+      root_page = Page.published_or_hidden.viewable_by(current_user).where(:controller => default_options['root']['controller'], :action => default_options['root']['action']).first
     else
-      root_page = root_page.first
+      return "<p><em>Error:</em> Root must be a page, a permalink, a url or a hash containing the controller and action, got: #{root.class.to_s}.</p>".html_safe
     end
     
-    return "<p><em>Error:</em> Root page not found</p>".html_safe unless root_page
+    return "<p><em>Error:</em> Root page not found: #{default_options['root']}</p>".html_safe unless root_page
 
     grouped_pages = root_page.self_and_descendants.viewable_by(current_user).shown_in_menu.published.for_nav.group_by(&:parent_id)
 
