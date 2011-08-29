@@ -6,6 +6,8 @@
  *= require markitup/sets/markdown/style
  *= require markitup/sets/css/style
  *= require markitup/sets/javascript/style
+ *= require codemirror/codemirror
+ *= require codemirror/themes/default
 */
 
 .js .hidden {

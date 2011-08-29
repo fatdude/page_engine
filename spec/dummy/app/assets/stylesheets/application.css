@@ -245,3 +245,14 @@ form.simple_form .actions {
 form.simple_form iframe.markItUpPreviewFrame {
   width: 814px;
 }
+
+.CodeMirror {
+  border: 1px solid #BBBBBB;
+  padding: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+}

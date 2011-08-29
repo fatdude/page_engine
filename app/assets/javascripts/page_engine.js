@@ -6,6 +6,9 @@
 //= require markitup/sets/css/set
 //= require markitup/sets/javascript/set
 //= require jquery.ui.nestedSortable
+//= require codemirror/codemirror
+//= require codemirror/modes/javascript
+//= require codemirror/modes/css
 
 $(document).ready(function(){
   
@@ -143,15 +146,19 @@ add_markdown = function(textarea){
 }
 
 add_css = function(textarea){
-  remove_editors(textarea);
-  textarea.markItUp(markitup_css_settings);
-  textarea.parents('.markItUp').addClass('css');
+  CodeMirror.fromTextArea(document.getElementById(textarea.attr('id')), {
+    lineNumbers: true,
+    matchBrackets: true,
+    mode: 'css'
+  });
 }
 
 add_javascript = function(textarea){
-  remove_editors(textarea);
-  textarea.markItUp(markitup_javascript_settings);
-  textarea.parents('.markItUp').addClass('javascript');
+  CodeMirror.fromTextArea(document.getElementById(textarea.attr('id')), {
+    lineNumbers: true,
+    matchBrackets: true,
+    mode: 'javascript'
+  });
 }
 
 remove_editors = function(textarea){
