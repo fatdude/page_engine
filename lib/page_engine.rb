@@ -2,7 +2,6 @@ require 'page_engine/defaults'
 require "page_engine/engine"
 require 'page_engine/extensions'
 require 'page_engine/helpers'
-require 'page_engine/routes_finder'
 require 'RedCloth'
 require 'bluecloth'
 require 'haml'

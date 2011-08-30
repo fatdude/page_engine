@@ -7,6 +7,107 @@
  *= require_tree . 
 */
 
+.js .hidden {
+  display: none;
+}
+
+.icon {
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  height: 16px;
+  width: 16px;
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+  background-image: url(/assets/page_engine/ruby.png);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  vertical-align: middle;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.icon {
+  *display: inline;
+}
+
+.icon.add {
+  background-image: url(/assets/page_engine/add.png);
+}
+
+.icon.delete {
+  background-image: url(/assets/page_engine/delete.png);
+}
+
+.icon.edit {
+  background-image: url(/assets/page_engine/pencil.png);
+}
+
+.icon.show {
+  background-image: url(/assets/page_engine/zoom.png);
+}
+
+.icon.waiting {
+  background-image: url(/assets/page_engine/waiting.gif);
+}
+
+ol#page_engine,
+ol#page_engine ol {
+  margin: 0;
+  padding: 0 0 0 16px;
+  border-left: solid white 1px;
+}
+
+ol#page_engine li.page {
+  background: white;
+}
+
+ol#page_engine .icon.add {
+  margin: 0 0 0 6px;
+  background-image: url(/assets/page_engine/page_add.png);
+}
+
+ol#page_engine .icon.edit {
+  background-image: url(/assets/page_engine/page_edit.png);
+}
+
+ol#page_engine .icon.delete {
+  background-image: url(/assets/page_engine/page_delete.png);
+}
+
+ol#page_engine .icon.duplicate {
+  background-image: url(/assets/page_engine/page_copy.png);
+}
+
+ol#page_engine .icon.published {
+  margin: 0 6px 0 0;
+  background-image: url(/assets/page_engine/page_green.png);
+}
+
+ol#page_engine .icon.live {
+  margin: 0 6px 0 0;
+  background-image: url(/assets/page_engine/page_lightning.png);
+}
+
+ol#page_engine .icon.draft {
+  margin: 0 6px 0 0;
+  background-image: url(/assets/page_engine/page_red.png);
+}
+
+ol#page_engine .icon.hidden {
+  margin: 0 6px 0 0;
+  background-image: url(/assets/page_engine/page_hidden.png);
+}
+
+ol#page_engine .icon.review {
+  margin: 0 6px 0 0;
+  background-image: url(/assets/page_engine/page_gear.png);
+}
+
 form.simple_form {
   width: 836px;
 }
@@ -246,6 +347,14 @@ form.simple_form iframe.markItUpPreviewFrame {
   width: 814px;
 }
 
+form.simple_form .page_part {
+  padding: 5px;
+}
+
+form.simple_form .page_part .delete {
+  float: right;
+}
+
 .CodeMirror {
   border: 1px solid #BBBBBB;
   padding: 5px;
@@ -255,4 +364,12 @@ form.simple_form iframe.markItUpPreviewFrame {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
+}
+
+.tabs li.tab_with_errors {
+  background: #CC0000 !important;
+}
+
+.tabs li.tab_with_errors a {
+  color: white !important;
 }
