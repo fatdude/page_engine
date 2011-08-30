@@ -1,5 +1,11 @@
+$:.push File.expand_path("../lib", __FILE__)
+
+# Maintain your gem's version:
+require "page_engine/version"
+
 # Provide a simple gemspec so you can easily use your
 # project in your rails apps through git.
+
 Gem::Specification.new do |s|
   s.name = "page_engine"
   s.author = "Mark Asson"
@@ -9,7 +15,7 @@ Gem::Specification.new do |s|
   s.description = "Extends a rails application with pages, allowing the generation of navigation, breadcrumbs etc. Content can be currently written in markdown, textile or plain html."
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.markdown"]
   s.test_files = Dir["spec/**/*"]
-  s.version = "0.0.4"
+  s.version = PageEngine::VERSION
   
   s.add_dependency 'simple_form'
   s.add_dependency 'RedCloth'

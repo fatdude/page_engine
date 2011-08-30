@@ -55,7 +55,6 @@ module PageEngine
             available[route.requirements[:controller]] << route.requirements[:action] unless available[route.requirements[:controller]].include?(route.requirements[:action])
           end
         end
-
       end
     end
 
