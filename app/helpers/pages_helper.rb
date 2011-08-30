@@ -92,7 +92,7 @@ module PagesHelper
       safe_concat(render(association.to_s.singularize + "_fields", :f => builder))
     end
     
-    link_to('Add', '#', :onclick => "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :class => 'icon add')
+    link_to('Add page part', '#', :onclick => "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :class => 'icon add')
   end  
   
   # Return the specified page part content

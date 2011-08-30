@@ -7,7 +7,7 @@ module PageEngine
       include Rails::Generators::Migration
       desc "This generator installs PageEngine supporting assets"
 
-      source_root File.expand_path('../../../../', __FILE__) 
+      source_root File.expand_path('../../../../../', __FILE__) 
       
       def self.next_migration_number(path)
         Time.now.utc.strftime("%Y%m%d%H%M%S")
@@ -37,7 +37,7 @@ module PageEngine
           directory 'vendor/assets/stylesheets', 'public/stylesheets'
           
           puts 'Updating image location'
-          ['css', 'textile', 'markdown', 'html', 'javascript'].each do |area|
+          ['textile', 'markdown', 'html'].each do |area|
             gsub_file "public/stylesheets/markitup/sets/#{area}/style.css", /\/assets\//, '/images/'
           end
           
@@ -55,7 +55,6 @@ module PageEngine
         end
         
         def copy_images
-          directory 'app/assets/images', 'public/images'
           directory 'vendor/assets/images', 'public/images'            
         end
 
