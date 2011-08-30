@@ -3,7 +3,7 @@
   
   .inputs
     = f.input :name
-    = f.input :filter, :collection => Page.filters, :include_blank => false, :class => 'filter', :input_html => { :class => 'filter', :rel => 'page_snippet_content' }
+    = f.input :filter, :collection => PageEngine.filters, :include_blank => false, :class => 'filter', :input_html => { :class => 'filter', :rel => 'page_snippet_content' }
     = f.input :content, :input_html => { :class => 'editor', 'data-filter' => @page_snippet.filter }
     
   .action
