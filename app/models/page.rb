@@ -26,7 +26,6 @@ class Page < ActiveRecord::Base
   # Filters
   before_validation :set_permalink
   before_save :check_publish_window
-  before_save :set_controller_and_action
 
   # Validations
   validates :title, :presence => true
@@ -44,7 +43,7 @@ class Page < ActiveRecord::Base
   scope :just_controller_and_actions, select("controller || '|' || action as taken").group('taken')
   scope :for_nav, select([:id, :title, :parent_id, :menu_css_class, :no_link, :url, :controller, :action, :permalink])
 
-  attr_accessor :no_publish_window, :controller_action  
+  attr_accessor :no_publish_window
 
   def no_publish_window
     no_publish_window_set?
@@ -53,6 +52,17 @@ class Page < ActiveRecord::Base
   def controller_action
     if controller && action
       "#{controller}|#{action}"
+    end
+  end
+  
+  def controller_action=(c)
+    if c.is_a?(String)
+      controller_and_action = c.split('|')
+      self.controller = controller_and_action.first
+      self.action = controller_and_action.last      
+    else
+      self.controller = nil
+      self.action = nil
     end
   end
 
@@ -199,17 +209,6 @@ class Page < ActiveRecord::Base
     def set_permalink
       self.permalink = self[:permalink].blank? ? self.title.parameterize : self[:permalink].parameterize
       self.menu_css_class = self.permalink if self[:menu_css_class].blank?
-    end
-
-    def set_controller_and_action
-      if @controller_action
-        controller_and_action = @controller_action.split('|')
-        self.controller = controller_and_action.first
-        self.action = controller_and_action.last
-      else
-        self.controller = nil
-        self.action = nil
-      end
     end
 
     def check_publish_window

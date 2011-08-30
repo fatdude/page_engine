@@ -35,6 +35,8 @@
     = f.input :publish_to, :order => [:day, :month, :year]
     = f.input :url
     
+    = debug @page.controller
+    
     = f.input :controller_action, :as => :select do 
       = f.select :controller_action, grouped_options_for_select(@routes), :include_blank => true
         
