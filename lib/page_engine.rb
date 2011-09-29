@@ -25,7 +25,18 @@ module PageEngine
   mattr_accessor :filters
   @@filters = %w{ none html textile markdown erb erb+textile }
   
+  # List of actions that should be included when getting the available routes
+  mattr_accessor :required_route_actions
+  @@required_route_actions = %w{ index show new edit create update }
   
+  # List of controllers that should be excluded when getting the available routes
+  mattr_accessor :excluded_route_controllers
+  @@excluded_route_controllers = []
+  
+  # To give more control over which controllers are returned
+  mattr_accessor :excluded_route_controllers_regex
+  @@excluded_route_controllers_regex = /^admin.*/
+
   # Module methods
   
   def self.statuses=s
@@ -43,21 +54,24 @@ module PageEngine
       return false
   end
   
-  def self.available_routes
+  def self.available_routes(options = {})
+    options = {
+      :required_actions => @@required_route_actions,
+      :excluded_controllers => @@excluded_route_controllers,
+      :excluded_controller_regex => @@excluded_route_controllers_regex
+    }.merge!(options.symbolize_keys)
+    
     available = {}
-
-    Rails.application.routes.routes.each do |route|
-      unless route.requirements.empty?
-        unless ['DELETE'].include?(route.verb.to_s) || route.requirements[:controller].match(/^admin.*/) || ['delete', :delete].include?(route.requirements[:method].to_s)
-          available[route.requirements[:controller]] = [] unless available[route.requirements[:controller]]
-          unless route.requirements[:controller] == 'pages' && route.requirements[:action] == 'show'
-            available[route.requirements[:controller]] << route.requirements[:action] unless available[route.requirements[:controller]].include?(route.requirements[:action])
-          end
-        end
-      end
+    
+    controller_actions = Rails.application.routes.routes.map(&:requirements)
+    
+    controller_actions.delete_if { |c| c.empty? || c[:controller] == 'rails/info' || c[:controller] == 'pages' || !options[:required_actions].include?(c[:action]) || options[:excluded_controllers].include?(c[:controller]) || c[:controller] =~ options[:excluded_controller_regex] }
+    
+    controller_actions.each do |c|
+      available[c[:controller]] ||= []
+      available[c[:controller]] << c[:action]
     end
-
-    available.delete('rails/info')
+    
     available
   end
   
