@@ -11,7 +11,7 @@ module PageEngine
     def find_page(permalink=nil)
       current_user = nil unless defined?(current_user)
       
-      unless params[:controller].split('/').first == "admin"
+      if Page.should_be_found?(params)
         if permalink
           @page = Page.includes(:page_parts).published.viewable_by(current_user).where(:permalink => permalink)
         else
@@ -66,7 +66,7 @@ module PageEngine
         end
       end
     end
-
+      
     private
 
       def get_breadcrumbs
@@ -77,6 +77,5 @@ module PageEngine
           @breadcrumbs = []
         end
       end
-
   end
 end

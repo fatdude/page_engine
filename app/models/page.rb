@@ -163,6 +163,10 @@ class Page < ActiveRecord::Base
 
   class << self
     
+    def should_be_found?(params)
+      PageEngine.required_route_actions.include?(params[:action]) && !PageEngine.excluded_route_controllers.include?(params[:controller])
+    end
+    
     def breadcrumbs_for(user, url)
       root = Page.published.viewable_by(user).find_by_url(url)
       root.nil? ? [] : root.self_and_ancestors
