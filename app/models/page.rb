@@ -188,7 +188,7 @@ class Page < ActiveRecord::Base
     end
 
     def with_roles(roles)
-      if Extras.class_exists?('Role')
+      if PageEngine.class_exists?('Role')
         includes(:roles).where([ "roles.id IN (?)", roles.join(',') ])
       else
         scoped
