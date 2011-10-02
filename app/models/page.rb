@@ -7,7 +7,7 @@ class Page < ActiveRecord::Base
   has_many :pages, :foreign_key => :parent_id
   has_many :page_parts, :dependent => :destroy
   
-  if PageEngine.class_exists?('Role')
+  if PageEngine.uses_roles?
     has_many :page_roles
     has_many :required_roles, :through => :page_roles, :source => :required_role
     has_many :excluded_roles, :through => :page_roles, :source => :excluded_role

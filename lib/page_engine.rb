@@ -36,6 +36,10 @@ module PageEngine
   # To give more control over which controllers are returned
   mattr_accessor :excluded_route_controllers_regex
   @@excluded_route_controllers_regex = /^admin.*/
+  
+  # If the page should be only viewable by a specific role, set the role class here
+  mattr_accessor :role_class
+  @@role_class = nil
 
   # Module methods
   
@@ -77,7 +81,12 @@ module PageEngine
   
   def self.setup
     yield self
-  end  
+  end   
+  
+  def self.uses_roles?
+    !self.role_class.blank?
+  end
+ 
 end
 
 ActionView::Helpers::AssetTagHelper.register_javascript_expansion :page_engine => ["jquery-ui-1.8.15.custom.min", "jquery.ui.nestedSortable", "jquery.markitup", "markitup/sets/html/set", "markitup/sets/textile/set", "markitup/sets/markdown/set", "codemirror/codemirror", "codemirror/modes/javascript", "codemirror/modes/css", "page_engine"]

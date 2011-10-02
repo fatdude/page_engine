@@ -39,10 +39,10 @@ class Admin::PagesController < ApplicationController
   # GET /pages/1/edit
   def edit
     @page = Page.includes([:parent, :page_parts]).where({ :permalink => params[:id] })
-    @page = @page.includes(:required_roles) if PageEngine.class_exists?('Role')
+#    @page = @page.includes(:required_roles) if PageEngine.uses_roles?
     @page = @page.first
     @parent = @page.parent
-    @roles = PageEngine.class_exists?('Role') ? Role.all : []
+#    @roles = PageEngine.uses_roles? ? PageEngine.role_class.classify.all : []
   end
 
   # POST /pages

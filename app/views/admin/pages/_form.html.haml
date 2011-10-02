@@ -21,7 +21,7 @@
         .page_part{ :id => "#{builder.object.title.parameterize}_#{builder.object.id}" }
           = render 'page_part_fields', :f => builder      
         
-    - unless @roles.empty?
+    - if PageEngine.uses_roles?
       = f.association :required_roles, :as => :check_boxes
       = f.association :excluded_roles, :as => :check_boxes
     
