@@ -22,8 +22,8 @@
           = render 'page_part_fields', :f => builder      
         
     - if PageEngine.uses_roles?
-      = f.association :required_roles, :as => :check_boxes
-      = f.association :excluded_roles, :as => :check_boxes
+      = f.association :required_roles, :as => :check_boxes, :collection => @roles
+      = f.association :excluded_roles, :as => :check_boxes, :collection => @roles
     
     = f.input :css, :label => 'CSS', :input_html => { 'data-filter' => 'css' }
     = f.input :js, :label => 'Javascript', :input_html => { 'data-filter' => 'javascript' }

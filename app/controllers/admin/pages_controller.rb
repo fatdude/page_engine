@@ -28,7 +28,7 @@ class Admin::PagesController < ApplicationController
     @page = Page.new
     PageEngine.page_parts.collect { |page_part| @page.page_parts.build(:title => page_part) }
     @parent = Page.find_by_permalink(params[:page_id])
-    @roles = PageEngine.class_exists?('Role') ? Role.all : []
+    @roles = PageEngine.uses_roles? ? PageEngine.role_class.classify.constantize.all : []
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,11 +38,11 @@ class Admin::PagesController < ApplicationController
 
   # GET /pages/1/edit
   def edit
-    @page = Page.includes([:parent, :page_parts]).where({ :permalink => params[:id] })
-#    @page = @page.includes(:required_roles) if PageEngine.uses_roles?
-    @page = @page.first
+    @page = Page.includes([:parent, :page_parts])
+    @page = @page.includes([:required_roles, :excluded_roles]) if PageEngine.uses_roles?
+    @page = @page.find_by_permalink(params[:id])
     @parent = @page.parent
-#    @roles = PageEngine.uses_roles? ? PageEngine.role_class.classify.all : []
+    @roles = PageEngine.uses_roles? ? PageEngine.role_class.classify.constantize.all : []
   end
 
   # POST /pages

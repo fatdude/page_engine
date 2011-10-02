@@ -21,5 +21,5 @@ PageEngine.setup do |config|
   # config.excluded_route_controllers_regex = /^admin.*/  
   
   # If a page should only be vieawable by a specific role set the role class here
-  config.role_class = 'Role' # or nil, 'Role' for example
+  config.role_class = 'OddRole' # or nil, 'Role' for example
 end

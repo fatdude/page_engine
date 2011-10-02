@@ -2,13 +2,11 @@ class Page < ActiveRecord::Base
   acts_as_nested_set
 
   # Relationships
-#  has_many :descendants, :class_name => "Page", :conditions => proc { "pages.lft between #{self.send(:lft)} and #{self.send(:rgt)}" }
-#  has_many :ancestors, :class_name => "Page", :conditions => proc { "(pages.lft <= #{self.send(:lft)} AND pages.rgt >= #{self.send(:rgt)}) AND (pages.id != #{self.send(:id)})" }, :foreign_key => false
   has_many :pages, :foreign_key => :parent_id
   has_many :page_parts, :dependent => :destroy
   
   if PageEngine.uses_roles?
-    has_many :page_roles
+    has_many :page_roles, :dependent => :destroy
     has_many :required_roles, :through => :page_roles, :source => :required_role
     has_many :excluded_roles, :through => :page_roles, :source => :excluded_role
   end
@@ -50,9 +48,7 @@ class Page < ActiveRecord::Base
   end
 
   def controller_action
-    if controller && action
-      "#{controller}|#{action}"
-    end
+    "#{controller}|#{action}" if controller && action
   end
   
   def controller_action=(c)
@@ -108,7 +104,7 @@ class Page < ActiveRecord::Base
     end
 
     # Roles
-    if PageEngine.class_exists?('Role')
+    if PageEngine.uses_roles?
       page.required_roles = self.required_roles 
       page.excluded_roles = self.excluded_roles
     end
@@ -124,7 +120,7 @@ class Page < ActiveRecord::Base
   end
 
   def is_viewable_by?(user)
-    if PageEngine.class_exists?('Role')
+    if PageEngine.uses_roles?
       if PageEngine.class_exists?('User') && user
         return true if self.roles.length == 0
         self.role_ids.length != (self.role_ids - user.role_ids.uniq).length        
@@ -179,7 +175,7 @@ class Page < ActiveRecord::Base
     # Scopes
 
     def viewable_by(user)
-      if PageEngine.class_exists?('Role') && PageEngine.class_exists?('User')
+      if PageEngine.uses_roles? && PageEngine.class_exists?('User')
         if user
           # This is a bit of a kludge until I can figure out how to get it to work properly in a single sql query
           includes(:page_roles).where("pages.id in (?) or (page_roles.required_role_id is null and page_roles.excluded_role_id is null)", PageRole.viewable_page_ids_for(user))
@@ -189,14 +185,6 @@ class Page < ActiveRecord::Base
       else
         scoped
       end      
-    end
-
-    def with_roles(roles)
-      if PageEngine.class_exists?('Role')
-        includes(:roles).where([ "roles.id IN (?)", roles.join(',') ])
-      else
-        scoped
-      end
     end
 
     def with_url(request, params)

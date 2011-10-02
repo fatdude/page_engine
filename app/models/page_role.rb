@@ -9,7 +9,7 @@ class PageRole < ActiveRecord::Base
   
   class << self
     def viewable_page_ids_for(user)
-      PageRole.viewable_by(user).map(&:page_id) - PageRole.not_viewable_by(user).map(&:page_id)
+      PageRole.viewable_by(user).select(:page_id).map(&:page_id) - PageRole.not_viewable_by(user).select(:page_id).map(&:page_id)
     end
   end
 end
