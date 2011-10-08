@@ -1,6 +1,4 @@
-class Admin::PageSnippetsController < ApplicationController
-  layout 'admin'
-  
+class Admin::PageSnippetsController < ApplicationController  
   def index
     @page_snippets = PageSnippet.all
 

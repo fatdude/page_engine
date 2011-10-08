@@ -1,6 +1,5 @@
 class Admin::PagesController < ApplicationController
   before_filter :get_routes, :except => [:index, :destroy]
-  layout 'admin'
   
   def index
     @pages = Page.order(:lft).all.group_by(&:parent_id)
