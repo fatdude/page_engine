@@ -8,14 +8,12 @@ module PageEngine
       end      
     end
     
-    def find_page(permalink=nil)
-      current_user = nil unless defined?(current_user)
-      
+    def find_page(permalink=nil)      
       if Page.should_be_found?(params)
         if permalink
-          @page = Page.includes(:page_parts).published.viewable_by(current_user).where(:permalink => permalink)
+          @page = Page.includes(:page_parts).published.viewable_by(get_current_page_viewer).where(:permalink => permalink)
         else
-          @page = Page.includes(:page_parts).published.viewable_by(current_user).with_url(request, params).first
+          @page = Page.includes(:page_parts).published.viewable_by(get_current_page_viewer).with_url(request, params).first
         end
         # See http://stackoverflow.com/questions/1595424/request-format-returning
         # This last format appears when the page is refreshed in IE
@@ -70,11 +68,18 @@ module PageEngine
     private
 
       def get_breadcrumbs
-        current_user = nil unless defined?(current_user)
         if @page
-          @breadcrumbs = @page.ancestors.for_nav.published.viewable_by(current_user).all
+          @breadcrumbs = @page.ancestors.for_nav.published.viewable_by(get_current_page_viewer).all
         else
           @breadcrumbs = []
+        end
+      end
+      
+      def get_current_page_viewer
+        if PageEngine.has_viewers?
+          user = send(PageEngine.current_viewer_helper)
+        else
+          user = nil
         end
       end
   end

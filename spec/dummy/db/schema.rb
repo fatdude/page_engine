@@ -11,10 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111002171742) do
+ActiveRecord::Schema.define(:version => 20111002230859) do
 
   create_table "odd_roles", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "odd_roles_weird_users", :id => false, :force => true do |t|
+    t.integer "weird_user_id"
+    t.integer "odd_role_id"
   end
 
   create_table "page_parts", :force => true do |t|
@@ -77,6 +82,10 @@ ActiveRecord::Schema.define(:version => 20111002171742) do
   create_table "pages_roles", :id => false, :force => true do |t|
     t.integer "page_id"
     t.integer "role_id"
+  end
+
+  create_table "weird_users", :force => true do |t|
+    t.string "name"
   end
 
 end

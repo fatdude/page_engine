@@ -1,6 +1,9 @@
 = simple_form_for([:admin, @parent, @page]) do |f|
   = f.error_notification
   = hidden_field_tag :the_page_id, @page.id
+  
+  - if !@page.new_record? && PageEngine.has_author? && @page.author
+    %p== Originally authored by: #{@page.author}
 
   .inputs  
     = f.input :title

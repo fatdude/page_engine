@@ -22,4 +22,13 @@ PageEngine.setup do |config|
   
   # If a page should only be vieawable by a specific role set the role class here
   config.role_class = 'OddRole' # or nil, 'Role' for example
+  
+  # Author class for the created pages
+  config.author_class = 'WeirdUser' # or nil, 'User' for example
+  
+  # Set the helper method that will be used to get the current author
+  config.current_author_helper = 'current_weird_user'
+  
+  # Set the helper method that will be used to get the current viewer
+  config.current_viewer_helper = 'current_weird_user'
 end

@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.name = "page_engine"
   s.author = "Mark Asson"
   s.email = "mark@fatdude.net"
-  s.homepage = "http://www.fatdude.net"
+  s.homepage = "https://github.com/fatdude/page_engine"
   s.summary = "Extends a rails application with pages"
   s.description = "Extends a rails application with pages, allowing the generation of navigation, breadcrumbs etc. Content can be currently written in markdown, textile or plain html."
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.markdown"]

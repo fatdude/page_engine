@@ -15,8 +15,8 @@ class Page < ActiveRecord::Base
     has_assets
   end
   
-  if PageEngine.class_exists?('User')
-    belongs_to :user
+  if PageEngine.has_author?
+    belongs_to :author, :class_name => PageEngine.author_class, :foreign_key => :authorable_id
   end
   
   accepts_nested_attributes_for :page_parts, :allow_destroy => true
@@ -175,17 +175,17 @@ class Page < ActiveRecord::Base
     # Scopes
 
     def viewable_by(user)
-      if PageEngine.uses_roles? && PageEngine.class_exists?('User')
+      if PageEngine.uses_roles?
         if user
           # This is a bit of a kludge until I can figure out how to get it to work properly in a single sql query
           includes(:page_roles).where("pages.id in (?) or (page_roles.required_role_id is null and page_roles.excluded_role_id is null)", PageRole.viewable_page_ids_for(user))
         else
-          includes(:page_roles).where({ 'page_roles.required_role_id' => nil })
+          includes(:page_roles).where('page_roles.required_role_id' => nil, 'page_roles.excluded_role_id' => nil)
         end
       else
         scoped
       end      
-    end
+    end  
 
     def with_url(request, params)
       url = request.fullpath
