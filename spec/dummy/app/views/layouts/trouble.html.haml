@@ -1,0 +1,29 @@
+!!! 5
+%html
+  %head
+    %title= page_title('Dummy')
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application", :page_engine
+    = page_meta_keywords
+    = page_meta_description
+    = csrf_meta_tags 
+    = page_css
+  %body
+    #nav
+      = navigation :include_root => true, :depth => 5
+      
+    #header
+      = breadcrumbs :format => :inline
+    
+    #content
+      %p This layout is troubled
+      
+      = yield
+      
+      = navigation :root => @page
+      
+    = page_js
+    
+    #footer
+    
+      = page_snippet :footer

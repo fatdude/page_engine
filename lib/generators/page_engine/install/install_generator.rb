@@ -14,12 +14,13 @@ module PageEngine
       end
       
       def install
-        create_migrations
-        copy_stylesheets
-        copy_javascripts
-        copy_images
-        
-        copy_file 'app/views/layouts/admin.html.haml', 'app/views/layouts/admin.html.haml'
+        if Rails.version < "3.1"
+          create_migrations
+          copy_stylesheets
+          copy_javascripts
+          copy_images
+        end
+        copy_file 'lib/generators/page_engine/templates/page_engine.rb', 'config/initializers/page_engine.rb'
       end
 
       private
@@ -60,4 +61,4 @@ module PageEngine
 
     end
   end
-end if Rails.version < "3.1"
+end
