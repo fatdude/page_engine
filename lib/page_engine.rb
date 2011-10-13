@@ -39,7 +39,19 @@ module PageEngine
   
   # If the page should be only viewable by a specific role, set the role class here
   mattr_accessor :role_class
-  @@role_class = nil
+  @@role_class = 'Role'
+  
+  # The author class
+  mattr_accessor :author_class
+  @@author_class = 'User'
+  
+  # Set the helper method that will be used to get the current author
+  mattr_accessor :current_author_helper
+  @@author_class = 'current_user'
+  
+  # Set the helper method that will be used to get the current user
+  mattr_accessor :current_viewer_helper
+  @@current_viewer_helper = 'current_user'
 
   # Module methods
   
@@ -85,6 +97,14 @@ module PageEngine
   
   def self.uses_roles?
     !self.role_class.blank?
+  end
+  
+  def self.has_author?
+    !self.author_class.blank?
+  end
+  
+  def self.has_viewers?
+    !self.current_viewer_helper.blank?
   end
  
 end

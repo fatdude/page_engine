@@ -49,6 +49,8 @@ class Admin::PagesController < ApplicationController
   def create
     @parent = Page.find_by_permalink(params[:page_id])
     @page = Page.new(params[:page])
+    
+    @page.author = send(PageEngine.current_author_helper) if PageEngine.has_author?
 
     respond_to do |format|
       if @page.save      
