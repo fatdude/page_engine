@@ -1,6 +1,4 @@
-.delete
-  = f.hidden_field :_destroy
-  = link_to 'Delete page part', '#', :class => 'icon delete', :title => "Delete the current page part"
+= f.hidden_field :_destroy, :id => "delete_#{f.object.title}"
 
 = f.error_notification
 

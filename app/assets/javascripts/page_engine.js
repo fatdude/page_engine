@@ -46,10 +46,14 @@ $(document).ready(function(){
     }
   });
 
-  $('.page_part a.delete').live('click', function(){
-    $(this).prev().val(true);
-    $('.page_parts').after($(this).prev());
-    page_parts.tabs('remove', selected_tab);     
+  $('.tabs li span.delete').live('click', function(){
+    hidden_delete = $($(this).prev().attr('href')).find('input[type=hidden]:first');
+    hidden_delete.val(true);
+    $('.page_parts').after(hidden_delete);
+    
+    var index = $("li", page_parts).index($(this).parent());
+    page_parts.tabs('remove', index);     
+    
     return false;
   });
   

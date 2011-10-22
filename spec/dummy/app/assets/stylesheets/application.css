@@ -5,6 +5,7 @@
  *= require_self
  *= require page_engine
  *= require_tree . 
+ *= require jquery-ui
 */
 
 .js .hidden {
@@ -372,4 +373,9 @@ form.simple_form .page_part .delete {
 
 .tabs li.tab_with_errors a {
   color: white !important;
+}
+
+.tabs li span.delete { 
+  float: left; 
+  margin: 0.6em 0.2em 0 0; 
 }

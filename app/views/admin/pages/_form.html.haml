@@ -19,6 +19,7 @@
         - @page.page_parts.each do |page_part|
           %li{ :class => "#{page_part.title.parameterize} #{'tab_with_errors' if page_part.errors.any?}"}
             = link_to page_part.title, "##{page_part.title.parameterize}_#{page_part.id}"
+            %span.icon.delete
       
       = f.simple_fields_for :page_parts do |builder|
         .page_part{ :id => "#{builder.object.title.parameterize}_#{builder.object.id}" }
