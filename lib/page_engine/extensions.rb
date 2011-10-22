@@ -3,7 +3,7 @@ require 'page_engine/instance_methods'
 require 'page_engine/exceptions'
 
 class << ActionController::Base
-  def page_engine(options = {})
+  def page_engine
   
     include PageEngine::InstanceMethods
     extend PageEngine::ClassMethods

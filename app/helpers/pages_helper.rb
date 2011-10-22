@@ -41,19 +41,35 @@ module PagesHelper
     end
   end
   
-  def page_meta_keywords
-    if @page && !@page.meta_keywords.blank?
-      content_tag :meta, :name => 'keywords' do 
-        @page.meta_keywords
+  def page_meta_keywords(options={})
+    options = {
+      :with_tags => true
+    }.with_indifferent_access.merge(options)
+    
+    if options[:with_tags]
+      if @page && !@page.meta_keywords.blank?
+        content_tag :meta, :name => 'keywords' do 
+          @page.meta_keywords
+        end
       end
+    else
+      @page.meta_keywords
     end
   end
   
-  def page_meta_description
-    if @page && !@page.meta_description.blank?
-      content_tag :meta, :name => 'description' do 
-        @page.meta_description
+  def page_meta_description(options={})
+    options = {
+      :with_tags => true
+    }.with_indifferent_access.merge(options)
+    
+    if options[:with_tags]
+      if @page && !@page.meta_description.blank?
+        content_tag :meta, :name => 'description' do 
+          @page.meta_description
+        end
       end
+    else
+      @page.meta_description
     end
   end
   
