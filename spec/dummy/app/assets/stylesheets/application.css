@@ -56,6 +56,14 @@
   background-image: url(/assets/page_engine/waiting.gif);
 }
 
+ol#page_engine li.placeholder {
+  border: dashed 1px #333;
+}
+
+ol#page_engine * {
+  list-style: none;
+}
+
 ol#page_engine,
 ol#page_engine ol {
   margin: 0;
