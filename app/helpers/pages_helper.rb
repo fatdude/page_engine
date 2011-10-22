@@ -89,7 +89,6 @@ module PagesHelper
     fields = simple_fields_for(:page_parts, PagePart.new, :child_index => "new_page_parts") do |builder|
       safe_concat(render('page_part_fields', :f => builder))
     end
-    #escape_javascript(fields)
     fields
   end 
   
