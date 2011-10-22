@@ -39,14 +39,11 @@ $(document).ready(function(){
     return false;
   });
   
-  var selected_tab = 0;
-  var page_parts = $('.page_parts').tabs({
-    select: function(event, ui){
-      selected_tab = ui.index;
-    }
+  var page_parts = $('#page_engine_page_parts').tabs({
+    tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='icon delete'>Remove page part</span></li>"
   });
 
-  $('.tabs li span.delete').live('click', function(){
+  $('#page_engine_page_parts ul li span.delete').live('click', function(){
     hidden_delete = $($(this).prev().attr('href')).find('input[type=hidden]:first');
     hidden_delete.val(true);
     $('.page_parts').after(hidden_delete);
@@ -97,6 +94,32 @@ $(document).ready(function(){
 		  } 
       return false;
     }
+  });
+  
+  $('#add_page_part').click(function(){
+    page_part_name = prompt('Enter the new page part name').replace(/[^a-z0-9\-_]+/ig, '-');
+    
+    if (page_part_name != ''){
+      if ($('#page_part_' + page_part_name).length == 0){
+        var new_id = new Date().getTime();
+        var content = unescape($('#page_engine_page_parts').attr('data-fields'));
+        
+        content = content.replace(/name="page_parts/g, 'name="page[page_parts_attributes][' + new_id + ']');
+        content = content.replace(/for="page_parts/g, 'for="page_page_parts_attributes_' + new_id);
+
+        $('#page_engine_page_parts').tabs('add', '#' + new_id, page_part_name);
+        $('#' + new_id).html(content);
+        $('#' + new_id).addClass('page_part');
+        $('#' + new_id + ' .input:first input').val(page_part_name);
+      }
+      else {
+        alert('Name already exists');      
+      }
+    } else {
+      alert('You need to specify a name');
+    }
+    
+    return false;
   });
 });
 

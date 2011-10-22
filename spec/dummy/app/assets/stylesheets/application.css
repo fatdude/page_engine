@@ -185,11 +185,11 @@ form.simple_form textarea {
   height: 250px;
 }
 
-form.simple_form .page_parts input.text, form.simple_form .page_parts input.title, form.simple_form .page_parts input[type=email], form.simple_form .page_parts input[type=text], form.simple_form .page_parts input.numeric, form.simple_form .page_parts input.tel, form.simple_form .page_parts input.url, form.simple_form .page_parts input[type=password] {
+form.simple_form #page_engine_page_parts input.text, form.simple_form #page_engine_page_parts input.title, form.simple_form #page_engine_page_parts input[type=email], form.simple_form #page_engine_page_parts input[type=text], form.simple_form #page_engine_page_parts input.numeric, form.simple_form #page_engine_page_parts input.tel, form.simple_form #page_engine_page_parts input.url, form.simple_form #page_engine_page_parts input[type=password] {
   width: 804px;
 }
 
-form.simple_form .page_parts textarea {
+form.simple_form #page_engine_page_parts textarea {
   width: 804px;
 }
 
@@ -367,15 +367,15 @@ form.simple_form .page_part .delete {
   border-radius: 5px;
 }
 
-.tabs li.tab_with_errors {
+#page_engine_page_parts ul li.tab_with_errors {
   background: #CC0000 !important;
 }
 
-.tabs li.tab_with_errors a {
+#page_engine_page_parts ul li.tab_with_errors a {
   color: white !important;
 }
 
-.tabs li span.delete { 
+#page_engine_page_parts ul li span.delete { 
   float: left; 
   margin: 0.6em 0.2em 0 0; 
 }

@@ -85,15 +85,13 @@ module PagesHelper
     page.title
   end
   
-  # Add extra fields for an object in a form, in this case page parts
-  def link_to_add_fields(name, f, association)
-    new_object = f.object.class.reflect_on_association(association).klass.new
-    fields = simple_fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
-      safe_concat(render(association.to_s.singularize + "_fields", :f => builder))
+  def page_part_fields(f)
+    fields = simple_fields_for(:page_parts, PagePart.new, :child_index => "new_page_parts") do |builder|
+      safe_concat(render('page_part_fields', :f => builder))
     end
-    
-    link_to('Add page part', '#', :onclick => "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :class => 'icon add')
-  end  
+    #escape_javascript(fields)
+    fields
+  end 
   
   # Return the specified page part content
   def page_content(options={})

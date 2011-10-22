@@ -9,20 +9,18 @@
     = f.input :title
     = f.input :permalink, :required => false
     
-    .page_parts
+    #page_engine_page_parts{ 'data-fields' => page_part_fields(f) }
       .input.new_page_part_name
-        %label New page part name
-        = text_field_tag :new_page_part_name 
-        = link_to_add_fields 'Add page part', f, :page_parts
+        = link_to('Add a page part', '#', :id => 'add_page_part')
         
-      %ul.tabs
+      %ul
         - @page.page_parts.each do |page_part|
           %li{ :class => "#{page_part.title.parameterize} #{'tab_with_errors' if page_part.errors.any?}"}
-            = link_to page_part.title, "##{page_part.title.parameterize}_#{page_part.id}"
+            = link_to page_part.title, "#page_part_#{page_part.title.parameterize}"
             %span.icon.delete
       
       = f.simple_fields_for :page_parts do |builder|
-        .page_part{ :id => "#{builder.object.title.parameterize}_#{builder.object.id}" }
+        .page_part{ :id => "page_part_#{builder.object.title.parameterize}" }
           = render 'page_part_fields', :f => builder      
         
     - if PageEngine.uses_roles?
